@@ -1,28 +1,14 @@
 package model
 
-import model.data.Item
-import model.data.LockTypeEnum
-
 class Room (
     val name: String,
     val description: String,
-    var lockType: LockTypeEnum = LockTypeEnum.none,
-    val lockKey: Item? = null,
-    var lockInteraction: Asset? = null,
-    val exitText: String = ""
 ){
     val assets: MutableList<Asset> = mutableListOf()
-    val exits: MutableMap<String, Room> = mutableMapOf()
+    val exits: MutableMap<String, Door> = mutableMapOf()
 
-    fun connectRoom(direction: String, room: Room) {
-        exits[direction] = room
-    }
-
-    fun updateLockType(lockType: LockTypeEnum, lockInteraction: Asset?) {
-        this.lockType = lockType
-        if (lockType == LockTypeEnum.interaction) {
-            this.lockInteraction = lockInteraction
-      }
+    fun connectRoom(direction: String, door: Door) {
+        exits[direction] = door
     }
 
     fun describe(): String {

@@ -18,6 +18,7 @@ fun main() {
                 println("""
                     Commands : 
                     - go [direction]
+                    - unlock [door direction]
                     - inspect [asset]
                     - take [item] from [asset]
                     - interact [asset]
@@ -30,6 +31,11 @@ fun main() {
                 val direction = input.removePrefix("go ").trim()
                 println(player.move(direction))
             }
+            input.startsWith("unlock ") -> {
+                val direction = input.removePrefix("unlock ").trim()
+                println(player.unlockDoor(direction))
+            }
+
             input == "look" -> {
                 println(player.currentRoom.describe())
             }

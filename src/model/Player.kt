@@ -6,26 +6,38 @@ import model.data.LockTypeEnum
 class Player(var currentRoom: Room) {
     val inventory: MutableList<Item> = mutableListOf()
 
+    fun unlockDoor(direction: String): String {
+        val door = currentRoom.exits[direction]
+        if (door?.lockType == LockTypeEnum.item) {
+            if (inventory.contains(door.lockKey)) {
+                return door.unlockDoor(door.lockKey!!)
+            } else {
+                return "You don't seem to have the right key item on you."
+            }
+        } else {
+            return "This door doesn't seem to have any locks a key can open."
+        }
+    }
+
     fun move(direction: String): String {
-        val nextRoom = currentRoom.exits[direction]
-        if (nextRoom == null) {
+        val exitDoor = currentRoom.exits[direction]
+        val nextRoom = if (exitDoor?.roomA == currentRoom) {
+            exitDoor.roomB
+        } else {
+            exitDoor?.roomA
+        }
+        if (exitDoor == null) {
             return "You can't go that way."
         }
-        if (nextRoom.lockType == LockTypeEnum.item) {
-            if (inventory.contains(nextRoom.lockKey)) {
-                nextRoom.updateLockType(LockTypeEnum.none, null)
-                return "You used the ${nextRoom.lockKey!!.name} to open ${nextRoom.name}. Do you wish to walk through?"
-            } else {
-                return "This door seems to be locked. You need to find the key."
-            }
+        if ((exitDoor.lockType == LockTypeEnum.item) && (exitDoor.locked)) {
+                return "This door seems to be locked. You need to find and use the key."
         }
-        if ((nextRoom.lockType == LockTypeEnum.interaction) && (!nextRoom.lockInteraction!!.active)) {
+        if ((exitDoor.lockType == LockTypeEnum.interaction) && (exitDoor.locked)) {
             return "The door won't budge. It doesn't seem to have a lock. Maybe there's some other way to unlock it."
         } else {
-            val previousRoom = currentRoom
-            currentRoom = nextRoom
+            currentRoom = nextRoom!!
             return("""
-            ${previousRoom.exitText}
+            ${exitDoor.openDoor()}
             You move $direction into ${currentRoom.name}.
             ${currentRoom.describe()}
             """.trimIndent())
@@ -56,7 +68,10 @@ class Player(var currentRoom: Room) {
 
     fun interact(assetName: String): String {
         val asset = currentRoom.findAsset(assetName)
-        return asset!!.interact()
+            if (asset != null) {
+        return asset.interact()
+        } else {
+            return "Nothing happened."
+        }
     }
-
 }

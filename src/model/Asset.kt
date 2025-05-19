@@ -1,5 +1,4 @@
 package model
-
 import model.data.Interaction
 import model.data.Item
 
@@ -10,6 +9,7 @@ class Asset(
 ) {
     private val items: MutableList<Item> = mutableListOf()
     private var interaction: Interaction? = null
+    private var interactionDependants: MutableList<Door> = mutableListOf()
 
     fun addItem(item: Item) {
         if (interaction != null) {
@@ -25,6 +25,10 @@ class Asset(
             throw IllegalArgumentException("Asset already has interaction.")
         } else
         this.interaction = interaction
+    }
+
+    fun addDependants(door: Door) {
+        interactionDependants.add(door)
     }
 
     fun inspect(): String {
@@ -47,6 +51,8 @@ class Asset(
     fun interact(): String {
         if (interaction != null) {
             this.active = true
+            val dependant = interactionDependants.find {it.lockInteraction == this}
+            dependant?.readInteraction(this)
             return interaction!!.activation
         } else return "You can not interact with $name."
     }
