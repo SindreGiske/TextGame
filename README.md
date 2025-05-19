@@ -11,6 +11,6 @@ Commands :
  - look
  - quit
 
-Things that might be expanded upon in the future: 
- - doors (rework how rooms connect)
+Things that might be expanded upon in the future:
  - more 'natural' inputs
+ - more stuff and things
