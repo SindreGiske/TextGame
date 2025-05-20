@@ -23,7 +23,8 @@ fun main() {
                     - take [item] from [asset]
                     - interact [asset]
                     - inventory
-                    - look
+                    - look              (looks around the room)
+                    - look at [asset]   (same as inspect [asset])
                     - quit
                 """.trimIndent())
             }
@@ -36,8 +37,18 @@ fun main() {
                 println(player.unlockDoor(direction))
             }
 
-            input == "look" -> {
+            input.startsWith("look") -> {
+                if (input.removePrefix("look").trim() == "")
                 println(player.currentRoom.describe())
+                else {
+                    val asset = input.removePrefix("look at").trim()
+                    println(asset)
+                    if (asset == "") {
+                        println("What do you wish to look at?")
+                    } else {
+                    println(player.inspectAsset(asset))
+                    }
+                }
             }
             input.startsWith("inspect ") -> {
                 val assetName = input.removePrefix("inspect ").trim()
@@ -53,6 +64,7 @@ fun main() {
                     println("Couldn't find [item] on [asset].")
                 }
             }
+
             input.startsWith("interact ") -> {
                 val assetName = input.removePrefix("interact ").trim()
                 println(player.interact(assetName))
