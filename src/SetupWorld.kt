@@ -5,7 +5,7 @@ import model.data.LockTypeEnum
 
 
 fun setupWorld(): Pair<Room, Player> {
-    var doorList = mutableListOf<Door>()
+    val doorList = mutableListOf<Door>()
 
     val startingRoom = Room("Cell", "A dark cell.")
     val table = Asset("table", "It's a table. There seems to be some clutter on it.")
@@ -41,17 +41,17 @@ fun setupWorld(): Pair<Room, Player> {
 
     westRoom.assets.add(lever)
 
-    val eastRoom = Room("east room", "To be continued.")
+    val northRoom = Room("North room", "To be continued.")
 
-    val cellDoor = Door.makeDoor("cellHall",roomA= startingRoom, roomB = hallway,
+    val cellDoor = Door.makeDoor("Cell Door",roomA= startingRoom, roomB = hallway,
         lockType = LockTypeEnum.item, lockKey = cellKey, direction = "north")
     doorList.add(cellDoor)
     val westDoor = Door.makeDoor("hallWest", roomA= hallway, roomB = westRoom,
         lockType = LockTypeEnum.none, direction = "west")
     doorList.add(westDoor)
-    val eastDoor = Door.makeDoor("hallEast", roomA= hallway, roomB = eastRoom,
-        lockType = LockTypeEnum.interaction, lockInteraction = lever, direction = "east")
-    doorList.add(eastDoor)
+    val northDoor = Door.makeDoor("hallNorth", roomA= hallway, roomB = northRoom,
+        lockType = LockTypeEnum.interaction, lockInteraction = lever, direction = "north")
+    doorList.add(northDoor)
 
     val player = Player(startingRoom)
     return Pair(startingRoom, player)

@@ -2,9 +2,13 @@ package model
 
 import model.data.Item
 import model.data.LockTypeEnum
+import model.util.reverseDirection
 
 class Player(var currentRoom: Room) {
     val inventory: MutableList<Item> = mutableListOf()
+    val roomMovementDirList: MutableList<String> = mutableListOf()
+    val roomMovementDoorList: MutableList<Door> = mutableListOf()
+    val roomMovementRoomList: MutableList<Room> = mutableListOf()
 
     fun unlockDoor(direction: String): String {
         val door = currentRoom.exits[direction]
@@ -20,6 +24,13 @@ class Player(var currentRoom: Room) {
     }
 
     fun move(direction: String): String {
+        if (direction == "back") {
+            val backDirection: String = roomMovementDirList.last().reverseDirection()
+            val nextRoom = roomMovementRoomList.last()
+            val backDoor = roomMovementDoorList.last()
+
+            return(moveNextRoom(nextRoom, backDoor, backDirection))
+        }
         val exitDoor = currentRoom.exits[direction]
         val nextRoom = if (exitDoor?.roomA == currentRoom) {
             exitDoor.roomB
@@ -35,13 +46,20 @@ class Player(var currentRoom: Room) {
         if ((exitDoor.lockType == LockTypeEnum.interaction) && (exitDoor.locked)) {
             return "The door won't budge. It doesn't seem to have a lock. Maybe there's some other way to unlock it."
         } else {
-            currentRoom = nextRoom!!
-            return("""
+            return (moveNextRoom(nextRoom!!, exitDoor, direction))
+        }
+    }
+    fun moveNextRoom(nextRoom: Room, exitDoor: Door, direction: String): String {
+    roomMovementDirList.add(direction)
+    roomMovementDoorList.add(exitDoor)
+    roomMovementRoomList.add(currentRoom)
+
+    currentRoom = nextRoom
+    return("""
             ${exitDoor.openDoor()}
             You move $direction into ${currentRoom.name}.
             ${currentRoom.describe()}
             """.trimIndent())
-        }
     }
 
     fun inspectAsset(assetName: String): String {

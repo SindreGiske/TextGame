@@ -1,6 +1,7 @@
 package model
 import model.data.Item
 import model.data.LockTypeEnum
+import model.util.reverseDirection
 
 class Door (
     var name: String,
@@ -14,17 +15,6 @@ class Door (
     var lockText: String? = null,
     var direction: String? = null,
 ) {
-    fun reverseDirection(direction: String): String {
-        return when (direction.lowercase()) {
-            "north" -> "south"
-            "south" -> "north"
-            "east" -> "west"
-            "west" -> "east"
-            "up" -> "down"
-            "down" -> "up"
-            else -> "unknown"
-        }
-    }
 
     companion object {
         fun makeDoor(
@@ -65,14 +55,14 @@ class Door (
                 }
             }
             roomA.connectRoom(direction, door)
-            roomB.connectRoom(door.reverseDirection(direction), door)
+            roomB.connectRoom(direction.reverseDirection(), door)
 
             return door
         }
     }
 
     fun openDoor(): String {
-        if (locked == false) {
+        if (!locked) {
             open = true
             return "You opened the door."
         }
@@ -82,7 +72,7 @@ class Door (
     fun unlockDoor(key: Item): String {
         if (key == lockKey) {
             locked = false
-            return "You unlocked the door with the ${key.name}"
+            return "You unlocked the ${this.name} with the ${key.name}"
         } else return "${key.name} could not open this door."
     }
 
