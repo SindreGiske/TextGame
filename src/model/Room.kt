@@ -12,17 +12,21 @@ class Room (
     }
 
     fun describe(): String {
-        val assetNames = assets.joinToString { it.name }
-        val exitNames = exits.keys.joinToString()
+        val assetNames = assets.joinToString(", ") { it.name }
+
+        // Get visible exits only
+        val visibleExits = exits.filterValues { !it.isHidden() }
+        val exitNames = visibleExits.keys.joinToString(", ")
+
         return """
-            
-            $name
-            $description
-            
-            Assets: ${if (assetNames.isEmpty()) "None" else assetNames}
-            Exits: ${if (exitNames.isEmpty()) "None" else exitNames}
-        """.trimIndent()
+        $name
+        $description
+
+        Assets: ${if (assetNames.isEmpty()) "None" else assetNames}
+        Exits: ${if (exitNames.isEmpty()) "None" else exitNames}
+    """.trimIndent()
     }
+
     fun findAsset(assetName: String): Asset? {
         return assets.find { it.name.equals(assetName, ignoreCase = true) }
     }

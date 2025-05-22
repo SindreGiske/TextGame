@@ -7,6 +7,7 @@ class Door (
     var name: String,
     var open: Boolean = false,
     var locked: Boolean = false,
+    var hidden: Boolean = false,
     var lockType: LockTypeEnum = LockTypeEnum.none,
     var lockInteraction: Asset? = null,
     var lockKey: Item? = null,
@@ -26,6 +27,7 @@ class Door (
             lockInteraction: Asset? = null,
             lockKey: Item? = null,
             lockText: String? = null,
+            hidden: Boolean? = false,
         ): Door {
             val door = Door(name = name)
             door.roomA = roomA
@@ -33,6 +35,7 @@ class Door (
             door.lockType = lockType
             door.direction = direction
             door.lockText = lockText
+            door.hidden = hidden ?: false
 
             when (lockType) {
                 LockTypeEnum.item -> {
@@ -60,6 +63,8 @@ class Door (
             return door
         }
     }
+
+    fun isHidden() = hidden
 
     fun openDoor(): String {
         if (!locked) {
