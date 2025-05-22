@@ -9,11 +9,13 @@ class Door (
     var locked: Boolean = false,
     var lockType: LockTypeEnum = LockTypeEnum.none,
     var lockInteraction: Asset? = null,
+    var Event: Event? = null,
     var lockKey: Item? = null,
     var roomA: Room? = null,
     var roomB: Room? = null,
-    var lockText: String? = null,
     var direction: String? = null,
+    var lockText: String? = null,
+    var hidden: Boolean = false,
 ) {
 
     companion object {
@@ -26,6 +28,7 @@ class Door (
             lockInteraction: Asset? = null,
             lockKey: Item? = null,
             lockText: String? = null,
+            hidden: Boolean = false,
         ): Door {
             val door = Door(name = name)
             door.roomA = roomA
@@ -78,6 +81,12 @@ class Door (
 
     fun readInteraction(asset: Asset) {
         if ((asset == lockInteraction) && asset.active) {
+            locked = false
+        }
+    }
+
+    fun readMultiInteraction(interaction: Event) {
+        if ((interaction == Event) && interaction.active) {
             locked = false
         }
     }

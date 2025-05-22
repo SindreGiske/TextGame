@@ -6,6 +6,7 @@ import model.util.reverseDirection
 
 class Player(var currentRoom: Room) {
     val inventory: MutableList<Item> = mutableListOf()
+
     val roomMovementDirList: MutableList<String> = mutableListOf()
     val roomMovementDoorList: MutableList<Door> = mutableListOf()
     val roomMovementRoomList: MutableList<Room> = mutableListOf()
@@ -79,6 +80,19 @@ class Player(var currentRoom: Room) {
         return "Couldn't find $itemName on $assetName"
     }
 
+    fun playerUseItem(itemName: String, assetName: String): String {
+        val asset = currentRoom.findAsset(assetName)
+        val item = inventory.find { it.name.equals(itemName, ignoreCase = true) }
+        if (item != null && asset != null) {
+        return(asset.useItem(item))
+        }
+        if (item == null) {
+            return "you don't seem to have any $item in your inventory."
+        }
+        else return "there doesn't seem to be a $asset in this room."
+    }
+
+
     fun checkInventory(): String {
         return if (inventory.isEmpty()) "Your inventory is empty."
         else inventory.joinToString("\n") { "${it.name}: ${it.description}" }
@@ -91,5 +105,12 @@ class Player(var currentRoom: Room) {
         } else {
             return "Nothing happened."
         }
+    }
+
+    fun changeCurrentRoom(room: Room) {
+        currentRoom = room
+    }
+    fun addItemToInventory(item: Item) {
+        inventory.add(item)
     }
 }

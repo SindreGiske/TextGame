@@ -8,8 +8,9 @@ class Asset(
     var active: Boolean = false
 ) {
     private val items: MutableList<Item> = mutableListOf()
-    private var interaction: Interaction? = null
-    private var interactionDependants: MutableList<Door> = mutableListOf()
+    var interaction: Interaction? = null
+    var Event: Event? = null
+    var interactionDependants: MutableList<Door> = mutableListOf()
 
     fun addItem(item: Item) {
         if (interaction != null) {
@@ -25,6 +26,10 @@ class Asset(
             throw IllegalArgumentException("Asset already has interaction.")
         } else
         this.interaction = interaction
+    }
+
+    fun updateEvent(event: Event) {
+        Event = event
     }
 
     fun addDependants(door: Door) {
@@ -49,12 +54,40 @@ class Asset(
     }
 
     fun interact(): String {
-        if (interaction != null) {
+        if (interaction != null && !interaction!!.itemActivated) {
             this.active = true
             val dependant = interactionDependants.find {it.lockInteraction == this}
             dependant?.readInteraction(this)
             return interaction!!.activation
-        } else return "You can not interact with $name."
+        } else if (interaction!!.itemActivated) {
+            return "Nothing happends. Maybe you can use an item on it?"
+        }
+        else return "You can not interact with $name."
+    }
+
+    fun useItem(item: Item): String {
+        val returnText = "You use ${item.name} to ${interaction!!.activation} on ${this.name}"
+        if (interaction != null && interaction!!.itemActivated) {
+            if (item == interaction!!.neededItem) {
+                this.active = true
+                if (Event != null) {
+                    Event!!.updateEvent()
+                    if (Event!!.active) {
+                        return ("""
+                            $returnText
+                            ${Event!!.updateEvent()}
+                            
+                        """.trimIndent())
+
+                    }
+                    return (returnText)
+                }
+                return (returnText)
+
+            }
+            else return ("You can not use ${item.name} on ${this.name}")
+        }
+        else return ("You can not use ${item.name} on ${this.name}")
     }
 
     fun takeItem(itemName: String): Item? {

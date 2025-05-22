@@ -21,6 +21,7 @@ fun main() {
                     - unlock [door direction]
                     - inspect [asset]
                     - take [item] from [asset]
+                    - use [item] on [asset]
                     - interact [asset]
                     - inventory
                     - look              (looks around the room)
@@ -32,6 +33,17 @@ fun main() {
                 val direction = input.removePrefix("go ").trim()
                 println(player.move(direction))
             }
+            input.startsWith("use ") -> {
+                val parts = input.removePrefix("use ").split(" on ", limit = 2)
+                if (parts.size == 2) {
+                    val item = parts[0].trim()
+                    val asset = parts[1].trim()
+                    println(player.playerUseItem(item, asset))
+                } else {
+                    println("Couldn't use [item] on [asset].")
+                }
+            }
+
             input.startsWith("unlock ") -> {
                 val direction = input.removePrefix("unlock ").trim()
                 println(player.unlockDoor(direction))
@@ -69,6 +81,10 @@ fun main() {
                 val assetName = input.removePrefix("interact ").trim()
                 println(player.interact(assetName))
             }
+            input.startsWith("skip") -> {
+                val shortcut = input.removePrefix("skip ").trim().toInt()
+                setupWorld()
+            }
 
             input == "inventory" -> {
                 println(player.checkInventory())
@@ -77,6 +93,7 @@ fun main() {
                 println("Shutting down...")
                 break
             }
+
 
             else -> println("""
                 Invalid input. 

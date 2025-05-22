@@ -2,7 +2,7 @@ package model
 
 class Room (
     val name: String,
-    val description: String,
+    var description: String,
 ){
     val assets: MutableList<Asset> = mutableListOf()
     val exits: MutableMap<String, Door> = mutableMapOf()
@@ -10,10 +10,20 @@ class Room (
     fun connectRoom(direction: String, door: Door) {
         exits[direction] = door
     }
+    fun updateDescription(new: String) {
+        description = new
+    }
 
     fun describe(): String {
         val assetNames = assets.joinToString { it.name }
-        val exitNames = exits.keys.joinToString()
+        val visibleExits: MutableMap<String, Door> = mutableMapOf()
+        for (exit in exits) {
+            if (!exit.value.hidden) {
+                visibleExits[exit.key] = exit.value
+            }
+        }
+
+        val exitNames = visibleExits.keys.joinToString()
         return """
             
             $name
