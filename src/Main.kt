@@ -23,6 +23,7 @@ fun main() {
                     - go [direction]
                     - unlock [door direction]
                     - inspect [asset]
+                    - inspect door [direction]
                     - take [item] from [asset]
                     - use [item] on [asset]
                     - interact [asset]
@@ -56,6 +57,10 @@ fun main() {
             }
             input.startsWith("inspect ") -> {
                 val assetName = input.removePrefix("inspect ").trim()
+                if (assetName.startsWith("door ")) {
+                    val direction = assetName.removePrefix("door ").trim()
+                    println(player.inspectDoor(direction))
+                } else
                 println(player.inspectAsset(assetName))
             }
             input.startsWith("take ") -> {

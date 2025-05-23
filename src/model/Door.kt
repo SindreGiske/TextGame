@@ -15,6 +15,7 @@ class Door (
     var roomB: Room? = null,
     var lockText: String? = null,
     var direction: String? = null,
+    var description: String? = null,
 ) {
 
     companion object {
@@ -28,6 +29,7 @@ class Door (
             lockKey: Item? = null,
             lockText: String? = null,
             hidden: Boolean? = false,
+            description: String? = "",
         ): Door {
             val door = Door(name = name)
             door.roomA = roomA
@@ -36,6 +38,7 @@ class Door (
             door.direction = direction
             door.lockText = lockText
             door.hidden = hidden ?: false
+            door.description = description ?: ""
 
             when (lockType) {
                 LockTypeEnum.item -> {
@@ -72,6 +75,13 @@ class Door (
             return "You opened the door."
         }
         else return "The door won't budge."
+    }
+
+    fun describeDoor(): String {
+        return ("""
+        ${this.name}
+            ${this.description}
+        """.trimIndent())
     }
 
     fun unlockDoor(key: Item): String {

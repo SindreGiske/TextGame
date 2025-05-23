@@ -11,7 +11,12 @@ class Player(var currentRoom: Room) {
     val roomMovementRoomList: MutableList<Room> = mutableListOf()
 
     fun unlockDoor(direction: String): String {
-        val door = currentRoom.exits[direction]
+        var door: Door? = null
+        door = if (currentRoom.exits.size == 1) {
+            currentRoom.exits.values.first()
+        } else {
+            currentRoom.exits[direction]
+        }
         if (door?.lockType == LockTypeEnum.item) {
             if (inventory.contains(door.lockKey)) {
                 return door.unlockDoor(door.lockKey!!)
@@ -65,6 +70,11 @@ class Player(var currentRoom: Room) {
     fun inspectAsset(assetName: String): String {
         val asset = currentRoom.findAsset(assetName)
         return asset?.inspect() ?: "You don't see any $assetName here to inspect."
+    }
+
+    fun inspectDoor(direction: String): String {
+        val door = currentRoom.exits[direction]
+        return door?.describeDoor() ?: "there isn't a door there."
     }
 
     fun takeItemFromAsset(itemName: String, assetName: String): String {
