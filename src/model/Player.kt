@@ -79,6 +79,18 @@ class Player(var currentRoom: Room) {
         return "Couldn't find $itemName on $assetName"
     }
 
+    fun useItemOnAsset(itemName: String, assetName: String): String {
+        val asset = currentRoom.findAsset(assetName)
+        val item = inventory.find { it.name == itemName }
+        if (item != null) {
+            if (asset != null) {
+                return asset.useItemOn(item)
+            }
+            else return "Couldn't find $assetName in ${currentRoom.name}."
+        }
+        else return "You couldn't find $itemName in your inventory."
+    }
+
     fun checkInventory(): String {
         return if (inventory.isEmpty()) "Your inventory is empty."
         else inventory.joinToString("\n") { "${it.name}: ${it.description}" }

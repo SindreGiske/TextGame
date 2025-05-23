@@ -2,7 +2,8 @@ package model
 
 class Room (
     val name: String,
-    val description: String,
+    var description: String,
+    var newDescription: String? = "",
 ){
     val assets: MutableList<Asset> = mutableListOf()
     val exits: MutableMap<String, Door> = mutableMapOf()
@@ -11,15 +12,20 @@ class Room (
         exits[direction] = door
     }
 
+    fun updateDescription() {
+        if (newDescription != "") {
+            description = newDescription!!
+            println(describe())
+        }
+    }
+
     fun describe(): String {
         val assetNames = assets.joinToString(", ") { it.name }
-
-        // Get visible exits only
         val visibleExits = exits.filterValues { !it.isHidden() }
         val exitNames = visibleExits.keys.joinToString(", ")
 
         return """
-        $name
+        You are in: $name
         $description
 
         Assets: ${if (assetNames.isEmpty()) "None" else assetNames}

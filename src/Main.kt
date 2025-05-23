@@ -3,7 +3,10 @@ import java.util.*
 
 fun main() {
     val (_, player) = setupWorld()
-    println("Welcome to the Game. type 'help' for commands.")
+    println("""
+        Welcome to the Game. type 'help' for commands.
+        
+        """.trimIndent())
     println(player.currentRoom.describe())
 
     val scanner = Scanner(System.`in`)
@@ -21,6 +24,7 @@ fun main() {
                     - unlock [door direction]
                     - inspect [asset]
                     - take [item] from [asset]
+                    - use [item] on [asset]
                     - interact [asset]
                     - inventory
                     - look              (looks around the room)
@@ -62,6 +66,16 @@ fun main() {
                     println(player.takeItemFromAsset(item, asset))
                 } else {
                     println("Couldn't find [item] on [asset].")
+                }
+            }
+            input.startsWith("use") -> {
+                val parts = input.removePrefix("use ").split(" on ", limit = 2)
+                if (parts.size == 2) {
+                    val item = parts[0].trim()
+                    val asset = parts[1].trim()
+                    println(player.useItemOnAsset(item, asset))
+                } else {
+                    println("You couldn't use [item] on [asset].")
                 }
             }
 
