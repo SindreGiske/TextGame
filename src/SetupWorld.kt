@@ -2,12 +2,13 @@ import model.*
 import model.data.Item
 import model.data.LockTypeEnum
 
-public fun setupWorld(): Pair<Room, Player> {
+fun setupWorld(): Pair<Room, Player> {
     val doorList = mutableListOf<Door>()
 
     val cell = Room("Cell", """
                 You are standing in a small cell.
         There is a painting on one wall, a table, and a door on the north wall.
+        
                             N
                         ╔══───══╗
                         ║│    ╥ ║
@@ -19,7 +20,7 @@ public fun setupWorld(): Pair<Room, Player> {
     val cellKey = Item("key", "Looks rusty, but should still be able to open some locks.")
     table.addItem(cellKey)
     cell.assets.add(table)
-    val painting = Asset("Painting", ("""
+    val painting = Asset("painting", ("""
         ⢀⡴⠑⡄⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
         ⠸⡇⠀⠿⡀⠀⠀⠀⣀⡴⢿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
         ⠀⠀⠀⠀⠑⢄⣠⠾⠁⣀⣄⡈⠙⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀ 
@@ -42,6 +43,7 @@ public fun setupWorld(): Pair<Room, Player> {
     val hallway = Room("Hallway",
         """There are three doors here. One you came out of, one to the west and one north.
            The North door has two lit candle light lamps on each side of the north door. 
+           
                     N
                 ╔══───══╗
                 ║±     ±║
@@ -50,6 +52,7 @@ public fun setupWorld(): Pair<Room, Player> {
                 ║       ║
                 ╚══───══╝
                     S
+                    
         """.trimMargin(),)
 
     val westRoom = Room("storage closet", """
@@ -60,7 +63,6 @@ public fun setupWorld(): Pair<Room, Player> {
                         ║╢      │ E
                         ║╚╤╤╤╕ ┴║
                         ╚═══════╝
-                        
         """.trimIndent())
     val lever = Asset("lever", "Just a lever. ",
         interaction = "you pull the lever, and hear a big clunk from the hallway.")
@@ -82,6 +84,7 @@ public fun setupWorld(): Pair<Room, Player> {
                         ║             ║
                         ╚═════   ═════╝
                                S
+                               
         """.trimIndent(),
         """
       The wall behind the obelisks opened up, and you see a big hall on the other side.
@@ -148,6 +151,8 @@ public fun setupWorld(): Pair<Room, Player> {
             
                 An Ominous Dark metal slab 
         with an eye that follows you wherever you go.
+        It does not seem to have any locks or doorhandles.
+        
                 ╒═╤═╤═╤═╤╤═╤═╤═╤═╕
                 │▓▓▒▒▒░░░░░░▒▒▒▓▓│
                 │▒▒▒░░░░░░░░░░▒▒▒│
