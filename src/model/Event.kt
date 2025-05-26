@@ -31,9 +31,9 @@ class Event (
     }
 
     fun updateEvent(asset: Asset) {
-        val theAssetlist = assetList
-        val theAsset = theAssetlist.find { it.name == asset.name }
-        theAsset!!.active = true
+        val itsAssetList = assetList
+        val itsAsset = itsAssetList.find { it.name == asset.name }
+        itsAsset!!.active = true
         asset.active = true
         if (assetList.contains(asset)) {
             if (assetList.all { it.active }) {

@@ -69,9 +69,6 @@ fun setupWorld(): Pair<Room, Player> {
         """.trimIndent())
     val lever = Asset("lever", "Just a lever. ",
         interaction = "you pull the lever, and hear a big clunk from the hallway.")
-    val pullLever = Event("Pull")
-    pullLever.addAsset(lever)
-    westRoom.assets.add(lever)
 
     //RITUAL ROOM INIT AND ASSETS
     val ritualRoom = Room("Ritual Hall",
@@ -103,7 +100,6 @@ fun setupWorld(): Pair<Room, Player> {
                         ╚═════   ═════╝
                                S
         """.trimIndent())
-
     val ritualTable = Asset("table", """
         A small table with a half circle of candles.
         Inside there is a silver plate with a single matchbox on it.
@@ -111,21 +107,18 @@ fun setupWorld(): Pair<Room, Player> {
     val matchbox = Item("matchbox", "A small matchbox with a handful of matches in it.")
     ritualTable.addItem(matchbox)
     ritualRoom.assets.add(ritualTable)
-
     val eagleObelisk = Asset("Eagle Obelisk",
         """A tall black obelisk with an inscribed drawing of an Eagle.
            Around hip height it holds a plate with a single thick candle on it. 
            
         """.trimMargin(), interaction ="light the candle", interactionItem = matchbox)
     ritualRoom.assets.add(eagleObelisk)
-
     val snakeObelisk = Asset("Snake Obelisk",
         """A tall black obelisk with an inscribed drawing of a Snake.
            Around hip height it holds a plate with a single thick on it. 
            
         """.trimMargin(), interaction ="light the candle", interactionItem = matchbox)
     ritualRoom.assets.add(snakeObelisk)
-
     val toadObelisk = Asset("Toad Obelisk",
         """A tall black obelisk with an inscribed drawing of a Toad.
            Around hip height it holds a plate with a single thick on it. 
@@ -134,7 +127,32 @@ fun setupWorld(): Pair<Room, Player> {
     ritualRoom.assets.add(toadObelisk)
 
     //ALTER HALL INIT
-    val alterHall = Room("Alter Hall", "description")
+    val alterHall = Room("Alter Hall", """
+            
+                        ╔═════════════════╗
+                        ║                 ║
+                        ║       ▐█▌       ║
+                        ║   ■         ■   ║
+                        ║                 ║
+                        ║   ■         ■   ║
+                        ║                 ║
+                        ║   ■         ■   ║
+                        ║                 ║
+                        ║   ■         ■   ║
+                        ║                 ║
+                        ╚══╗           ╔══╝
+                           ║     ╥     ║
+                           ║           ║
+                           ╚════   ════╝
+                           
+    """.trimIndent())
+
+
+    // EVENTS
+
+    val pullLever = Event("Pull")
+    pullLever.addAsset(lever)
+    westRoom.assets.add(lever)
 
     val allLit = Event("All lit")
     allLit.addAsset(eagleObelisk)
@@ -146,7 +164,6 @@ fun setupWorld(): Pair<Room, Player> {
     val cellDoor = Door.makeDoor("Cell Door",roomA= cell, roomB = hallway,
         lockType = LockTypeEnum.item, lockKey = cellKey, direction = "north")
     doorList.add(cellDoor)
-
     val westDoor = Door.makeDoor("hallWest", roomA= hallway, roomB = westRoom,
         lockType = LockTypeEnum.none, direction = "west")
     doorList.add(westDoor)
@@ -193,7 +210,7 @@ fun setupWorld(): Pair<Room, Player> {
     doorList.add(ritualToAltar)
     allLit.addDoor(ritualToAltar)
 
-
+    // GAME INIT
     val startingRoom: Room = cell
     val player = Player(startingRoom)
     return Pair(startingRoom, player)
