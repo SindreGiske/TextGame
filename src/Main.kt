@@ -72,7 +72,7 @@ fun main() {
                     println("Couldn't find [item] on [asset].")
                 }
             }
-            input.startsWith("use") -> {
+            input.startsWith("use ") -> {
                 val parts = input.removePrefix("use ").split(" on ", limit = 2)
                 if (parts.size == 2) {
                     val item = parts[0].trim()
@@ -91,6 +91,11 @@ fun main() {
             input == "inventory" -> {
                 println(player.checkInventory())
             }
+
+            input == "check inventory" -> {
+                println(player.checkInventory())
+            }
+
             input == "quit" -> {
                 println("Shutting down...")
                 break
@@ -102,5 +107,4 @@ fun main() {
                 Type 'help' for commands.""".trimIndent())
         }
     }
-
 }

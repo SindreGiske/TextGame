@@ -5,6 +5,7 @@ import model.data.LockTypeEnum
 fun setupWorld(): Pair<Room, Player> {
     val doorList = mutableListOf<Door>()
 
+    //CELL INIT AND ASSETS
     val cell = Room("Cell", """
                 You are standing in a small cell.
         There is a painting on one wall, a table, and a door on the north wall.
@@ -40,6 +41,7 @@ fun setupWorld(): Pair<Room, Player> {
     """.trimIndent()))
     cell.assets.add(painting)
 
+    //HALLWAY INIT
     val hallway = Room("Hallway",
         """There are three doors here. One you came out of, one to the west and one north.
            The North door has two lit candle light lamps on each side of the north door. 
@@ -55,6 +57,7 @@ fun setupWorld(): Pair<Room, Player> {
                     
         """.trimMargin(),)
 
+    //STORAGE CLOSET INIT AND ASSETS
     val westRoom = Room("storage closet", """
         It's just an almost empty storage room with a lever on the wall.
         
@@ -70,6 +73,7 @@ fun setupWorld(): Pair<Room, Player> {
     pullLever.addAsset(lever)
     westRoom.assets.add(lever)
 
+    //RITUAL ROOM INIT AND ASSETS
     val ritualRoom = Room("Ritual Hall",
         """
                 A dim candlelit hall. 
@@ -129,7 +133,8 @@ fun setupWorld(): Pair<Room, Player> {
         """.trimMargin(), interaction ="light the candle", interactionItem = matchbox)
     ritualRoom.assets.add(toadObelisk)
 
-    val altarHall = Room("Alter Hall", "description")
+    //ALTER HALL INIT
+    val alterHall = Room("Alter Hall", "description")
 
     val allLit = Event("All lit")
     allLit.addAsset(eagleObelisk)
@@ -167,7 +172,7 @@ fun setupWorld(): Pair<Room, Player> {
         """.trimIndent())
     doorList.add(northDoor)
     pullLever.addDoor(northDoor)
-    val ritualToAltar = Door.makeDoor("Ritual Door", roomA = ritualRoom, roomB = altarHall,
+    val ritualToAltar = Door.makeDoor("Ritual Door", roomA = ritualRoom, roomB = alterHall,
         "north", lockType = LockTypeEnum.none, hidden = true,
         description = """
             
