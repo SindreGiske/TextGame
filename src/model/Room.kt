@@ -43,8 +43,4 @@ class Room (
     fun findAsset(assetName: String): Asset? {
         return assets.find { it.name.equals(assetName, ignoreCase = true) }
     }
-
-    fun findDoor(doorName: String): Door? {
-        return exits[doorName]
-    }
 }
