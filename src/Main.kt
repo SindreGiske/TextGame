@@ -1,7 +1,7 @@
 import model.interactions.runDialogue
 import java.util.*
 
-var level: Int = 2
+var level: Int = 1
 fun nextLevel() {
     println("""
         
@@ -25,12 +25,16 @@ fun main() {
     }
     println(player.currentRoom.describe())
 
+
     val scanner = Scanner(System.`in`)
 
     while (true) {
         print("> ")
         val input = scanner.nextLine().trim().lowercase()
         if (input.isEmpty()) continue
+        if (player.currentRoom.character != null) {
+            runDialogue(player.currentRoom.character!!)
+        }
 
         when {
             input == "help" -> {

@@ -1,7 +1,6 @@
 package model
 
 import model.data.character
-import model.interactions.runDialogue
 
 class Room (
     val name: String,
@@ -39,9 +38,6 @@ class Room (
         Assets: ${if (assetNames.isEmpty()) "None" else assetNames}
         Exits: ${if (exitNames.isEmpty()) "None" else exitNames}
         
-        ${if (character != null) {
-            runDialogue(character!!)
-        } else ("")}
     """.trimIndent()
     }
 
