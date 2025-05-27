@@ -2,6 +2,7 @@ package model.interactions
 
 import model.Asset
 import model.Door
+import nextLevel
 
 class Event (
     var name: String,
@@ -23,6 +24,9 @@ class Event (
 
     private fun activateEvent() {
         this.active = true
+        if (endEvent == true) {
+            nextLevel()
+        } else
         doorList.forEach {
             it.hidden = false
             it.locked = false
@@ -37,6 +41,7 @@ class Event (
     fun updateEvent(asset: Asset) {
         val itsAssetList = assetList
         val itsAsset = itsAssetList.find { it.name == asset.name }
+
         itsAsset!!.active = true
         asset.active = true
         if (assetList.contains(asset)) {

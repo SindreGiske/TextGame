@@ -74,6 +74,7 @@ fun level1(): Room {
         """.trimIndent())
     val lever = Asset("lever", "Just a lever. ",
         interaction = "you pull the lever, and hear a big clunk from the hallway.")
+    westRoom.assets.add(lever)
 
     //RITUAL ROOM INIT AND ASSETS
     val ritualRoom = Room("Ritual Hall",
@@ -131,36 +132,12 @@ fun level1(): Room {
         """.trimMargin(), interaction ="light the candle", interactionItem = matchbox)
     ritualRoom.assets.add(toadObelisk)
 
-    //ALTER HALL INIT
-    val alterHall = Room("Alter Hall", """
-            
-                        ╔═════════════════╗
-                        ║                 ║
-                        ║       ▐█▌       ║
-                        ║   ■         ■   ║
-                        ║                 ║
-                        ║   ■         ■   ║
-                        ║                 ║
-                        ║   ■         ■   ║
-                        ║                 ║
-                        ║   ■         ■   ║
-                        ║                 ║
-                        ╚══╗           ╔══╝
-                           ║     ╥     ║
-                           ║           ║
-                           ╚════   ════╝
-                                 S
-                           
-    """.trimIndent())
-
-
     // EVENTS
 
     val pullLever = Event("Pull")
     pullLever.addAsset(lever)
-    westRoom.assets.add(lever)
 
-    val allLit = Event("All lit")
+    val allLit = Event("All lit", endEvent = true)
     allLit.addAsset(eagleObelisk)
     allLit.addAsset(snakeObelisk)
     allLit.addAsset(toadObelisk)
@@ -195,26 +172,6 @@ fun level1(): Room {
         """.trimIndent())
     doorList.add(northDoor)
     pullLever.addDoor(northDoor)
-    val ritualToAltar = Door.makeDoor("Ritual Door", roomA = ritualRoom, roomB = alterHall,
-        "north", lockType = LockTypeEnum.none, hidden = true,
-        description = """
-            
-                An Ominous Dark metal slab 
-        with an eye that follows you wherever you go.
-                ╒═╤═╤═╤═╤╤═╤═╤═╤═╕
-                │▓▓▒▒▒░░░░░░▒▒▒▓▓│
-                │▒▒▒░░░░░░░░░░▒▒▒│
-                │▒░░░░      ░░░░▒│
-                │░░░   ▄██▄   ░░░│
-                │░░░   ▀██▀   ░░░│
-                │▒░░░░      ░░░░▒│
-                │▒▒▒░░░░░░░░░░▒▒▒│
-                │▓▓▒▒▒░░░░░░▒▒▒▓▓│
-                ╘═╧═╧═╧═╧╧═╧═╧═╧═╛
-            
-        """.trimIndent())
-    doorList.add(ritualToAltar)
-    allLit.addDoor(ritualToAltar)
 
     val startingRoom: Room = start
     return startingRoom

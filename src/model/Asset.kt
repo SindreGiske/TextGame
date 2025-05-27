@@ -53,7 +53,11 @@ class Asset(
             if (event != null) {
                 event!!.updateEvent(this)
             }
-            return interaction!!
+            return """
+                
+        ${interaction!!}
+                
+            """.trimMargin()
         } else if (interactionItem != null) {
             return "Looks like you have to use an item on $name"
         } else

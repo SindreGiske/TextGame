@@ -1,4 +1,5 @@
 import levels.level1
+import levels.level2
 import model.*
 
 fun setupWorld(level: Int): Pair<Room, Player> {
@@ -9,6 +10,10 @@ fun setupWorld(level: Int): Pair<Room, Player> {
         1 -> {
             level1()
             startingRoom = level1()
+        }
+        2 -> {
+            level2()
+            startingRoom = level2()
         }
     }
     val player = Player(startingRoom)
