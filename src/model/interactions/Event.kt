@@ -1,4 +1,7 @@
-package model
+package model.interactions
+
+import model.Asset
+import model.Door
 
 class Event (
     var name: String,

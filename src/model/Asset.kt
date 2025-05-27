@@ -1,5 +1,6 @@
 package model
 import model.data.Item
+import model.interactions.Event
 
 class Asset(
     val name: String,

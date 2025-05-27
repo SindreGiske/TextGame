@@ -1,6 +1,7 @@
 import model.*
 import model.data.Item
 import model.data.LockTypeEnum
+import model.interactions.Event
 
 fun setupWorld(): Pair<Room, Player> {
     val doorList = mutableListOf<Door>()

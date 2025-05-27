@@ -10,7 +10,7 @@ class Player(var currentRoom: Room) {
     val roomMovementDoorList: MutableList<Door> = mutableListOf()
     val roomMovementRoomList: MutableList<Room> = mutableListOf()
 
-    fun unlockDoor(direction: String): String {
+    fun unlockDoor(direction: String?): String {
         var door: Door? = null
         door = if (currentRoom.exits.size == 1) {
             currentRoom.exits.values.first()
@@ -90,15 +90,15 @@ class Player(var currentRoom: Room) {
     }
 
     fun useItemOnAsset(itemName: String, assetName: String): String {
-        val asset = currentRoom.findAsset(assetName)
         val item = inventory.find { it.name == itemName }
-        if (item != null) {
+        val asset = currentRoom.findAsset(assetName)
+        return if (item != null) {
             if (asset != null) {
-                return asset.useItemOn(item)
-            }
-            else return "Couldn't find $assetName in ${currentRoom.name}."
-        }
-        else return "You couldn't find $itemName in your inventory."
+                asset.useItemOn(item)
+            } else if (assetName == "door") {
+                return (unlockDoor(""))
+            } else "Couldn't find $assetName in ${currentRoom.name}."
+        } else "You couldn't find $itemName in your inventory."
     }
 
     fun checkInventory(): String {
