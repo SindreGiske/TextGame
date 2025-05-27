@@ -1,7 +1,13 @@
 import java.util.*
 
 fun main() {
-    val (_, player) = setupWorld()
+    var level: Int = 1
+    val (_, player) = setupWorld(level)
+
+    fun nextLevel() {
+        level++
+    }
+
     println("""
         Welcome to the Game. type 'help' for commands.
         

@@ -7,6 +7,7 @@ class Event (
     var name: String,
     var active: Boolean? = false,
     var activationText: String = "",
+    var endEvent: Boolean? = false,
 ) {
     var assetList = mutableListOf<Asset>()
     var doorList = mutableListOf<Door>()
