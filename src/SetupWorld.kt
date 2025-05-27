@@ -144,6 +144,7 @@ fun setupWorld(): Pair<Room, Player> {
                            ║     ╥     ║
                            ║           ║
                            ╚════   ════╝
+                                 S
                            
     """.trimIndent())
 
