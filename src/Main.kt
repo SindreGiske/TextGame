@@ -1,7 +1,8 @@
+import model.Room
 import model.interactions.runDialogue
 import java.util.*
 
-var level: Int = 1
+var level: Int = 2
 fun nextLevel() {
     println("""
         
@@ -32,8 +33,8 @@ fun main() {
         print("> ")
         val input = scanner.nextLine().trim().lowercase()
         if (input.isEmpty()) continue
-        if (player.currentRoom.character != null) {
-            runDialogue(player.currentRoom.character!!)
+        if (player.currentRoom.entities != null) {
+            runDialogue(player.currentRoom.entities!!)
         }
 
         when {
@@ -121,11 +122,6 @@ fun main() {
                 println("Shutting down...")
                 break
             }
-
-            else -> println("""
-                Invalid input. 
-                One of us is too stupid to understand what's going on...
-                Type 'help' for commands.""".trimIndent())
         }
     }
 }

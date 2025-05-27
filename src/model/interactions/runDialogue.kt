@@ -1,22 +1,22 @@
 package model.interactions
 
 import model.data.DialogueNode
-import model.data.character
+import model.data.Entities
 
-fun runDialogue( character: character ) {
+fun runDialogue(entities: Entities) {
     val stack = ArrayDeque<DialogueNode>()
-    var current: DialogueNode? = character.rootDialogue
-    val theirName = character.name
+    var current: DialogueNode? = entities.rootDialogue
+    val theirName = entities.name
 
     println("$theirName: ${current!!.response}")
 
     while (current != null) {
-        if (current.response != character.rootDialogue.response) {
+        if (current.response != entities.rootDialogue.response) {
             println("$theirName: ${current.response}")
         }
 
         if (current.triggerEvent == true) {
-            character.event?.characterActivateEvent()
+            entities.event?.entityActivateEvent()
         }
 
         if (current.next.isEmpty()) {
@@ -24,7 +24,8 @@ fun runDialogue( character: character ) {
                 current = stack.removeLast()
                 continue
             } else {
-                println("$theirName: ${character.goodbye}")
+                println("$theirName: ${entities.goodbye}")
+                println("")
                 break
             }
         }
@@ -39,7 +40,9 @@ fun runDialogue( character: character ) {
 
         if (input != null && input in current.next.indices) {
             stack.addLast(current)
+            println("You: ${current.next[input].prompt}")
             current = current.next[input]
+            println("")
         } else {
             println("$theirName: I don't understand...")
         }

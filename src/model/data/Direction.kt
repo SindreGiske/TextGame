@@ -1,6 +1,6 @@
 package model.data
 
-enum class direction {
+enum class Direction {
     north,
     east,
     south,

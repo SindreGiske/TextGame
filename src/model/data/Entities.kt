@@ -2,9 +2,9 @@ package model.data
 
 import model.interactions.Event
 
-data class character (
+data class Entities (
     val name: String,
     val goodbye: String,
     val rootDialogue: DialogueNode,
-    val event: Event? = null
+    var event: Event? = null
 )

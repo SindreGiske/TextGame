@@ -2,6 +2,8 @@ package model.interactions
 
 import model.Asset
 import model.Door
+import model.Player
+import model.Room
 import nextLevel
 
 class Event (
@@ -9,6 +11,7 @@ class Event (
     var active: Boolean? = false,
     var activationText: String = "",
     var endEvent: Boolean? = false,
+    var movePlayer: Room? = null,
 ) {
     var assetList = mutableListOf<Asset>()
     var doorList = mutableListOf<Door>()
@@ -22,12 +25,15 @@ class Event (
         doorList.add(door)
     }
 
-    fun characterActivateEvent() {
+    fun entityActivateEvent() {
         activateEvent()
     }
 
     private fun activateEvent() {
         this.active = true
+        if (movePlayer != null) {
+            Player(movePlayer!!)
+        } else
         if (endEvent == true) {
             nextLevel()
         } else

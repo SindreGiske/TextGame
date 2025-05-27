@@ -46,7 +46,7 @@ class Player(var currentRoom: Room) {
             return "You can't go that way."
         }
         if ((exitDoor.lockType == LockTypeEnum.item) && (exitDoor.locked)) {
-                return "This door seems to be locked. You need to find and use the key."
+            return "This door seems to be locked. You need to find and use the key."
         }
         if ((exitDoor.lockType == LockTypeEnum.interaction) && (exitDoor.locked)) {
             return "The door won't budge. It doesn't seem to have a lock. Maybe there's some other way to unlock it."
@@ -55,16 +55,21 @@ class Player(var currentRoom: Room) {
         }
     }
     fun moveNextRoom(nextRoom: Room, exitDoor: Door, direction: String): String {
-    roomMovementDirList.add(direction)
-    roomMovementDoorList.add(exitDoor)
-    roomMovementRoomList.add(currentRoom)
+        roomMovementDirList.add(direction)
+        roomMovementDoorList.add(exitDoor)
+        roomMovementRoomList.add(currentRoom)
 
-    currentRoom = nextRoom
-    return("""
+        currentRoom = nextRoom
+        return("""
             ${exitDoor.openDoor()}
             You move $direction into ${currentRoom.name}.
             ${currentRoom.describe()}
             """.trimIndent())
+    }
+
+    fun teleport(nextRoom: Room) {
+        currentRoom = nextRoom
+        currentRoom.describe()
     }
 
     fun inspectAsset(assetName: String): String {
@@ -108,8 +113,8 @@ class Player(var currentRoom: Room) {
 
     fun interact(assetName: String): String {
         val asset = currentRoom.findAsset(assetName)
-            if (asset != null) {
-        return asset.interact()
+        if (asset != null) {
+            return asset.interact()
         } else {
             return "Nothing happened."
         }

@@ -1,12 +1,12 @@
 package model
 
-import model.data.character
+import model.data.Entities
 
 class Room (
     val name: String,
     var description: String,
     var newDescription: String? = "",
-    var character: character? = null
+    var entities: Entities? = null
 ){
     val assets: MutableList<Asset> = mutableListOf()
     val exits: MutableMap<String, Door> = mutableMapOf()
@@ -16,7 +16,7 @@ class Room (
     }
 
     fun characterLeaves() {
-        character = null
+        entities = null
     }
 
     fun updateDescription() {
