@@ -14,10 +14,19 @@ fun runDialogue(entities: Entities) {
         if (current.response != entities.rootDialogue.response) {
             println("$theirName: ${current.response}")
         }
+        println("")
+        println("")
+        println("")
 
         if (current.triggerEvent == true) {
+            println("$theirName: ${entities.goodbye}")
+            println("")
+            Thread.sleep(1000)
             entities.event?.entityActivateEvent()
+            break
         }
+
+        Thread.sleep(1500)
 
         if (current.next.isEmpty()) {
             if (current.goBackOnEnd && stack.isNotEmpty()) {
@@ -41,7 +50,9 @@ fun runDialogue(entities: Entities) {
         if (input != null && input in current.next.indices) {
             stack.addLast(current)
             println("You: ${current.next[input].prompt}")
+            Thread.sleep(250)
             current = current.next[input]
+            println("")
             println("")
         } else {
             println("$theirName: I don't understand...")

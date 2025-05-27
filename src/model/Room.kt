@@ -22,7 +22,6 @@ class Room (
     fun updateDescription() {
         if (newDescription != "") {
             description = newDescription!!
-            println(describe())
         }
     }
 

@@ -67,11 +67,6 @@ class Player(var currentRoom: Room) {
             """.trimIndent())
     }
 
-    fun teleport(nextRoom: Room) {
-        currentRoom = nextRoom
-        currentRoom.describe()
-    }
-
     fun inspectAsset(assetName: String): String {
         val asset = currentRoom.findAsset(assetName)
         return asset?.inspect() ?: "You don't see any $assetName here to inspect."

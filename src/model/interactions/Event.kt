@@ -2,7 +2,6 @@ package model.interactions
 
 import model.Asset
 import model.Door
-import model.Player
 import model.Room
 import nextLevel
 
@@ -11,7 +10,7 @@ class Event (
     var active: Boolean? = false,
     var activationText: String = "",
     var endEvent: Boolean? = false,
-    var movePlayer: Room? = null,
+    var entityEventRoom: Room? = null,
 ) {
     var assetList = mutableListOf<Asset>()
     var doorList = mutableListOf<Door>()
@@ -31,18 +30,20 @@ class Event (
 
     private fun activateEvent() {
         this.active = true
-        if (movePlayer != null) {
-            Player(movePlayer!!)
+        if (entityEventRoom != null) {
+            entityEventRoom!!.characterLeaves()
+            entityEventRoom!!.updateDescription()
         } else
         if (endEvent == true) {
             nextLevel()
-        } else
+        }
         doorList.forEach {
             it.hidden = false
             it.locked = false
             it.open = true
             if (it.lockText != "") {
                 it.roomA!!.updateDescription()
+                it.roomA!!.describe()
                 println(activationText)
             }
         }

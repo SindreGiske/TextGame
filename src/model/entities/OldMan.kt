@@ -1,5 +1,4 @@
 package model.entities
-import levels.level2
 import model.data.DialogueNode
 import model.data.Entities
 
