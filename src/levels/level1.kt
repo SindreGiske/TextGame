@@ -8,6 +8,7 @@ import model.data.LockTypeEnum
 import model.interactions.Event
 
 fun level1(): Room {
+    val doorList = mutableListOf<Door>()
 
     //CELL INIT AND ASSETS
     val start = Room("Cell", """
@@ -168,8 +169,10 @@ fun level1(): Room {
 
     val cellDoor = Door.makeDoor("Cell Door",roomA= start, roomB = hallway,
         lockType = LockTypeEnum.item, lockKey = cellKey, direction = "north")
+    doorList.add(cellDoor)
     val westDoor = Door.makeDoor("hallWest", roomA= hallway, roomB = westRoom,
         lockType = LockTypeEnum.none, direction = "west")
+    doorList.add(westDoor)
     val northDoor = Door.makeDoor("Heavy Door north of the Hallway.", roomA= hallway, roomB = ritualRoom,
         lockType = LockTypeEnum.interaction, direction = "north",
         description = """
@@ -190,6 +193,7 @@ fun level1(): Room {
                 ╘═╧═╧═╧═╧╧═╧═╧═╧═╛
             
         """.trimIndent())
+    doorList.add(northDoor)
     pullLever.addDoor(northDoor)
     val ritualToAltar = Door.makeDoor("Ritual Door", roomA = ritualRoom, roomB = alterHall,
         "north", lockType = LockTypeEnum.none, hidden = true,
@@ -209,6 +213,7 @@ fun level1(): Room {
                 ╘═╧═╧═╧═╧╧═╧═╧═╧═╛
             
         """.trimIndent())
+    doorList.add(ritualToAltar)
     allLit.addDoor(ritualToAltar)
 
     val startingRoom: Room = start
