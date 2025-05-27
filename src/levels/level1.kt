@@ -92,19 +92,6 @@ fun level1(): Room {
                         ╚═════   ═════╝
                                S
                                
-        """.trimIndent(),
-        """
-      The wall behind the obelisks opened up, and you see a big hall on the other side.
-                                
-                               N
-                        ╔════     ════╗
-                        ║ Φ    ⌠    Ω ║
-                        ║ ▓    ▓    ▓ ║
-                        ║             ║
-                        ║      ╥      ║
-                        ║             ║
-                        ╚═════   ═════╝
-                               S
         """.trimIndent())
     val ritualTable = Asset("table", """
         A small table with a half circle of candles.

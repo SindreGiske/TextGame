@@ -22,6 +22,10 @@ class Event (
         doorList.add(door)
     }
 
+    fun characterActivateEvent() {
+        activateEvent()
+    }
+
     private fun activateEvent() {
         this.active = true
         if (endEvent == true) {
@@ -50,6 +54,4 @@ class Event (
             }
         }
     }
-
-
 }

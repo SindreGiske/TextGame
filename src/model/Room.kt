@@ -1,15 +1,23 @@
 package model
 
+import model.data.character
+import model.interactions.runDialogue
+
 class Room (
     val name: String,
     var description: String,
     var newDescription: String? = "",
+    var character: character? = null
 ){
     val assets: MutableList<Asset> = mutableListOf()
     val exits: MutableMap<String, Door> = mutableMapOf()
 
     fun connectRoom(direction: String, door: Door) {
         exits[direction] = door
+    }
+
+    fun characterLeaves() {
+        character = null
     }
 
     fun updateDescription() {
@@ -30,6 +38,10 @@ class Room (
 
         Assets: ${if (assetNames.isEmpty()) "None" else assetNames}
         Exits: ${if (exitNames.isEmpty()) "None" else exitNames}
+        
+        ${if (character != null) {
+            runDialogue(character!!)
+        } else ("")}
     """.trimIndent()
     }
 
@@ -38,6 +50,6 @@ class Room (
     }
 
     fun findDoor(doorName: String): Door? {
-        return exits.get(doorName)
+        return exits[doorName]
     }
 }

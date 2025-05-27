@@ -1,8 +1,13 @@
+import model.interactions.runDialogue
 import java.util.*
 
-
-var level: Int = 1
+var level: Int = 2
 fun nextLevel() {
+    println("""
+        
+        Level $level complete!
+        
+    """.trimIndent())
     level++
     main()
 }
@@ -10,10 +15,14 @@ fun nextLevel() {
 fun main() {
     var (_, player) = setupWorld(level)
 
-    println("""
+    if (level == 1) {
+        println(
+            """
+                
         Welcome to the Game. type 'help' for commands.
         
         """.trimIndent())
+    }
     println(player.currentRoom.describe())
 
     val scanner = Scanner(System.`in`)
