@@ -28,8 +28,13 @@ val oldMan = Entities(
                         response = "Well, you can, but I'd bet my left eye you won't.",
                         next = listOf(
                             DialogueNode(
-                                prompt= "Stop playing around. If you want to kill me just get on with it already.",
+                                prompt= "I don't wanna play your stupid game, just kill me already.",
                                 response = "You're no fun at all. I have other business to attend to. Perhaps I'll see you again later.",
+                                triggerEvent = true
+                            ),
+                            DialogueNode(
+                                prompt = "Stop playing around. Let me see you so I can strangle you!!!",
+                                response = "You're a feisty one, aren't ya'! If you're lucky you'll get the chance soon enough.",
                                 triggerEvent = true
                             )
                         )
