@@ -1,12 +1,12 @@
 package model
 
-import model.data.Entities
+import model.data.NPCs
 
 class Room (
     val name: String,
     var description: String,
     var newDescription: String? = "",
-    var entities: Entities? = null
+    var npc: NPCs? = null
 ){
     val assets: MutableList<Asset> = mutableListOf()
     val exits: MutableMap<String, Door> = mutableMapOf()
@@ -15,13 +15,18 @@ class Room (
         exits[direction] = door
     }
 
-    fun characterLeaves() {
-        entities = null
+    fun setNPC(npc: NPCs) {
+        this.npc = npc
+    }
+
+    fun npcLeaves() {
+        npc = null
     }
 
     fun updateDescription() {
         if (newDescription != "") {
             description = newDescription!!
+            println(describe())
         }
     }
 
@@ -31,6 +36,7 @@ class Room (
         val exitNames = visibleExits.keys.joinToString(", ")
 
         return """
+            
         You are in: $name
         $description
 

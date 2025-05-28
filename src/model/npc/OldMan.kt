@@ -1,8 +1,8 @@
-package model.entities
+package model.npc
 import model.data.DialogueNode
-import model.data.Entities
+import model.data.NPCs
 
-val oldMan = Entities(
+val oldMan = NPCs(
     name = "Mysterious Old Man",
     goodbye = "Godspeed fresh meat!",
     rootDialogue = DialogueNode(
@@ -11,7 +11,7 @@ val oldMan = Entities(
         next = listOf(
             DialogueNode(
                 prompt = "Who are you?!",
-                response = "Is that really all you need to know?",
+                response = "That's not important now, is it?",
                 goBackOnEnd = true
             ),
             DialogueNode(
@@ -33,7 +33,7 @@ val oldMan = Entities(
                                 triggerEvent = true
                             ),
                             DialogueNode(
-                                prompt = "Stop playing around. Let me see you so I can strangle you!!!",
+                                prompt = "Stop playing around. Get over here so I can strangle you!!!",
                                 response = "You're a feisty one, aren't ya'! If you're lucky you'll get the chance soon enough.",
                                 triggerEvent = true
                             )

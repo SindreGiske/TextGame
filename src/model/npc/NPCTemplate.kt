@@ -1,9 +1,9 @@
-package model.entities
+package model.npc
 
 import model.data.DialogueNode
-import model.data.Entities
+import model.data.NPCs
 
-val entityTemplate = Entities(
+val entityTemplate = NPCs(
     name = "name",
     goodbye = "goodbye",
     event = null,

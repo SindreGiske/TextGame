@@ -2,11 +2,14 @@ package levels
 
 import model.Door
 import model.Room
-import model.entities.oldMan
+import model.data.LockTypeEnum
+import model.npc.oldMan
 import model.interactions.Event
 
 fun level2(): Room {
+    val doorList = mutableListOf<Door>()
 
+    // STARTROOM INIT
     val start = Room("Ritual Hall", """
         
         
@@ -16,13 +19,16 @@ fun level2(): Room {
                    open or not makes no difference whatsoever. 
         
                     Suddenly you hear a voice in the darkness. 
+                 
                     
     """.trimIndent(),
         newDescription = ("""
         
                 As quickly as the candles blew out,
-        they all burst back into flame, lighting up the room,
+         they all burst back into flame, lighting up the room,
         and revealing an opening in the wall behind the obelisk.
+        
+                        You are all alone.
                                
                                N
                         ╔═════   ═════╗
@@ -31,19 +37,41 @@ fun level2(): Room {
                         ║             ║
                         ║      ╥      ║
                         ║             ║
-                        ╚═════   ═════╝
-                               S
+                        ╚═════───═════╝
+                               
  
-        """.trimIndent()), entities = oldMan )
+        """.trimIndent()))
 
-    val introEvent = Event("introEvent", entityEventRoom = start)
-    oldMan.event = introEvent
+    // BACKROOM INIT
+    val backRoom = Room("Backroom", """
+        
+        
+                
+                ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+       ╔════════╝╧╧╧╧╧╧╧╧╧╧╧╧╧╚════════╗
+       ║         ╥   ╥   ╥   ╥         ║
+     W │                               │ E
+       ║                               ║
+       ╚════════╗             ╔════════╝
+                ╚═════   ═════╝
+                       S
+                
+               
+        
+    """.trimIndent())
 
-    val backRoom = Room("Backroom", "")
+    //DOORS
+    val ritualBackDoor = Door.makeDoor("Ritual Hall Backdoor", roomA = start, roomB = backRoom, hidden = true, direction = "north", lockType = LockTypeEnum.none)
+    doorList.add(ritualBackDoor)
 
+    //ENTITIES
+    val oldMan = oldMan
 
-    val ritualBackDoor = Door("Ritual Hall Backdoor", roomA = start, roomB = backRoom, hidden = true)
+    //EVENTS
+    val introEvent = Event("introEvent", entityEventRoom = start, activationText = "")
     introEvent.addDoor(ritualBackDoor)
+    oldMan.updateEvent(introEvent)
+    start.setNPC(oldMan)
 
     val startingRoom: Room = start
     return startingRoom

@@ -1,4 +1,3 @@
-import model.Room
 import model.interactions.runDialogue
 import java.util.*
 
@@ -33,8 +32,8 @@ fun main() {
         print("> ")
         val input = scanner.nextLine().trim().lowercase()
         if (input.isEmpty()) continue
-        if (player.currentRoom.entities != null) {
-            runDialogue(player.currentRoom.entities!!)
+        if (player.currentRoom.npc != null) {
+            runDialogue(player.currentRoom.npc!!)
         }
 
         when {

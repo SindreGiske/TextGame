@@ -24,15 +24,14 @@ class Event (
         doorList.add(door)
     }
 
-    fun entityActivateEvent() {
+    fun npcActivateEvent() {
         activateEvent()
     }
 
     private fun activateEvent() {
         this.active = true
         if (entityEventRoom != null) {
-            entityEventRoom!!.characterLeaves()
-            entityEventRoom!!.updateDescription()
+            entityEventRoom?.npcLeaves()
         } else
         if (endEvent == true) {
             nextLevel()
@@ -43,7 +42,6 @@ class Event (
             it.open = true
             if (it.lockText != "") {
                 it.roomA!!.updateDescription()
-                it.roomA!!.describe()
                 println(activationText)
             }
         }

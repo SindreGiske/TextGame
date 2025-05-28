@@ -8,14 +8,14 @@ fun setupWorld(level: Int): Pair<Room, Player> {
 
     when (level) {
         1 -> {
-            level1()
             startingRoom = level1()
         }
         2 -> {
-            level2()
             startingRoom = level2()
         }
+
     }
+
     val player = Player(startingRoom)
     return Pair(startingRoom, player)
 }

@@ -9,6 +9,7 @@ import model.interactions.Event
 
 fun level1(): Room {
     val doorList = mutableListOf<Door>()
+    val itemList = mutableListOf<Item>()
 
     //CELL INIT AND ASSETS
     val start = Room("Cell", """
@@ -25,6 +26,7 @@ fun level1(): Room {
     val table = Asset("table", "It's a table. There seems to be some clutter on it.")
     val cellKey = Item("key", "Looks rusty, but should still be able to open some locks.")
     table.addItem(cellKey)
+    itemList.add(cellKey)
     start.assets.add(table)
     val painting = Asset("painting", ("""
         ⢀⡴⠑⡄⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
@@ -99,6 +101,7 @@ fun level1(): Room {
         """.trimIndent())
     val matchbox = Item("matchbox", "A small matchbox with a handful of matches in it.")
     ritualTable.addItem(matchbox)
+    itemList.add(matchbox)
     ritualRoom.assets.add(ritualTable)
     val eagleObelisk = Asset("Eagle Obelisk",
         """A tall black obelisk with an inscribed drawing of an Eagle.
@@ -118,16 +121,6 @@ fun level1(): Room {
            
         """.trimMargin(), interaction ="light the candle", interactionItem = matchbox)
     ritualRoom.assets.add(toadObelisk)
-
-    // EVENTS
-
-    val pullLever = Event("Pull")
-    pullLever.addAsset(lever)
-
-    val allLit = Event("All lit", endEvent = true)
-    allLit.addAsset(eagleObelisk)
-    allLit.addAsset(snakeObelisk)
-    allLit.addAsset(toadObelisk)
 
     // DOORS
 
@@ -158,7 +151,18 @@ fun level1(): Room {
             
         """.trimIndent())
     doorList.add(northDoor)
+
+    // EVENTS
+
+    val pullLever = Event("Pull")
     pullLever.addDoor(northDoor)
+    pullLever.addAsset(lever)
+
+    val allLit = Event("All lit", endEvent = true)
+    allLit.addAsset(eagleObelisk)
+    allLit.addAsset(snakeObelisk)
+    allLit.addAsset(toadObelisk)
+
 
     val startingRoom: Room = start
     return startingRoom

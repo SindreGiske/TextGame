@@ -1,17 +1,27 @@
 package model.interactions
 
 import model.data.DialogueNode
-import model.data.Entities
+import model.data.NPCs
 
-fun runDialogue(entities: Entities) {
+fun runDialogue(NPCs: NPCs) {
     val stack = ArrayDeque<DialogueNode>()
-    var current: DialogueNode? = entities.rootDialogue
-    val theirName = entities.name
+    var current: DialogueNode? = NPCs.rootDialogue
+    val theirName = NPCs.name
+
+    var wait1000:Long = 1000
+    var wait1500:Long = 1500
+    var wait250 :Long  = 250
+    if (false) {
+        wait1000 = 0
+        wait1500 = 0
+        wait250 = 0
+    }
 
     println("$theirName: ${current!!.response}")
 
     while (current != null) {
-        if (current.response != entities.rootDialogue.response) {
+
+        if (current.response != NPCs.rootDialogue.response) {
             println("$theirName: ${current.response}")
         }
         println("")
@@ -19,21 +29,21 @@ fun runDialogue(entities: Entities) {
         println("")
 
         if (current.triggerEvent == true) {
-            println("$theirName: ${entities.goodbye}")
+            println("$theirName: ${NPCs.goodbye}")
             println("")
-            Thread.sleep(1000)
-            entities.event?.entityActivateEvent()
+            Thread.sleep(wait1000)
+            NPCs.event?.npcActivateEvent()
             break
         }
 
-        Thread.sleep(1500)
+        Thread.sleep(wait1500)
 
         if (current.next.isEmpty()) {
             if (current.goBackOnEnd && stack.isNotEmpty()) {
                 current = stack.removeLast()
                 continue
             } else {
-                println("$theirName: ${entities.goodbye}")
+                println("$theirName: ${NPCs.goodbye}")
                 println("")
                 break
             }
@@ -41,21 +51,21 @@ fun runDialogue(entities: Entities) {
 
         println("\nChoose your response:")
         current.next.forEachIndexed { index, option ->
-            println("${index +1}, ${option.prompt}")
+            println("[${index +1}] :  ${option.prompt}")
         }
-        println("")
 
+        println("")
         val input = readLine()?.toIntOrNull()?.minus(1)
 
         if (input != null && input in current.next.indices) {
             stack.addLast(current)
             println("You: ${current.next[input].prompt}")
-            Thread.sleep(250)
+            Thread.sleep(wait250)
             current = current.next[input]
             println("")
             println("")
         } else {
-            println("$theirName: I don't understand...")
+            println("$theirName: What did you just say to me?!")
         }
     }
 }

@@ -22,7 +22,7 @@ class Door (
         fun makeDoor(
             name: String,
             roomA: Room,
-            roomB: Room,
+            roomB: Room? = null,
             direction: String,
             lockType: LockTypeEnum,
             lockInteraction: Asset? = null,
@@ -30,6 +30,7 @@ class Door (
             lockText: String? = null,
             hidden: Boolean? = false,
             description: String? = "",
+            locked: Boolean? = false,
         ): Door {
             val door = Door(name = name)
             door.roomA = roomA
@@ -38,6 +39,7 @@ class Door (
             door.direction = direction
             door.lockText = lockText
             door.hidden = hidden ?: false
+            door.locked = locked ?: false
             door.description = description ?: ""
 
             when (lockType) {
@@ -61,13 +63,12 @@ class Door (
                 }
             }
             roomA.connectRoom(direction, door)
-            roomB.connectRoom(direction.reverseDirection(), door)
-
+            roomB?.connectRoom(direction.reverseDirection(), door)
             return door
         }
     }
 
-    fun isHidden() = hidden
+    fun isHidden(): Boolean = hidden
 
     fun openDoor(): String {
         if (!locked) {
