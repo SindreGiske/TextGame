@@ -2,12 +2,14 @@ package levels
 
 import model.Door
 import model.Room
+import model.data.Item
 import model.data.LockTypeEnum
 import model.npc.oldMan
 import model.interactions.Event
 
 fun level2(): Room {
     val doorList = mutableListOf<Door>()
+    val itemList = mutableListOf<Item>()
 
     // STARTROOM INIT
     val start = Room("Ritual Hall", """

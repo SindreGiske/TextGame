@@ -1,10 +1,9 @@
 import model.interactions.runDialogue
 import java.util.*
 
-var level: Int = 2
+var level: Int = 1
 fun nextLevel() {
     println("""
-        
         Level $level complete!
         
     """.trimIndent())
@@ -24,7 +23,6 @@ fun main() {
         """.trimIndent())
     }
     println(player.currentRoom.describe())
-
 
     val scanner = Scanner(System.`in`)
 
