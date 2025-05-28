@@ -87,7 +87,12 @@ fun main() {
                     val item = parts[0].trim()
                     val asset = parts[1].trim()
                     println(player.takeItemFromAsset(item, asset))
-                } else {
+                }
+                if (parts.size == 1) {
+                    val item = parts[0].trim()
+                    println(player.takeItemFromAssetCache(item))
+                }
+                else {
                     println("Couldn't find [item] on [asset].")
                 }
             }

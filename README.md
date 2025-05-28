@@ -21,6 +21,12 @@ go works in cardinal directions [north, south, east, west].
 
 go command now also supports [go back] which returns you to the last room you left.
 
+TAKE ITEM: 
+
+If you have inspected the asset which holds the item (and not left the room since) 
+you can simply say for example [take key], and the key will be taken from the table, 
+not needing to specify [take key from table]. 
+
 UNLOCK DOOR : 
 
 If the room only has one door, you can unlock it with just [ unlock door ]. [ use key on door ] also works.

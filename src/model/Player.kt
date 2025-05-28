@@ -9,6 +9,7 @@ class Player(var currentRoom: Room) {
     val roomMovementDirList: MutableList<String> = mutableListOf()
     val roomMovementDoorList: MutableList<Door> = mutableListOf()
     val roomMovementRoomList: MutableList<Room> = mutableListOf()
+    var assetCache: MutableList<Asset> = mutableListOf()
 
     fun unlockDoor(direction: String?): String {
         var door: Door? = null
@@ -55,6 +56,7 @@ class Player(var currentRoom: Room) {
         }
     }
     fun moveNextRoom(nextRoom: Room, exitDoor: Door, direction: String): String {
+        assetCache = mutableListOf()
         roomMovementDirList.add(direction)
         roomMovementDoorList.add(exitDoor)
         roomMovementRoomList.add(currentRoom)
@@ -69,7 +71,8 @@ class Player(var currentRoom: Room) {
 
     fun inspectAsset(assetName: String): String {
         val asset = currentRoom.findAsset(assetName)
-        return asset?.inspect() ?: "You don't see any $assetName here to inspect."
+        assetCache.add(asset!!)
+        return asset.inspect()
     }
 
     fun inspectDoor(direction: String): String {
@@ -87,6 +90,16 @@ class Player(var currentRoom: Room) {
             }
         }
         return "Couldn't find $itemName on $assetName"
+    }
+
+    fun takeItemFromAssetCache(itemName: String): String {
+        for (i in assetCache) {
+            if (i.hasItem(itemName)) {
+                return takeItemFromAsset(itemName, i.name)
+                break
+            }
+        }
+        return ("Where do you want to take the $itemName from?")
     }
 
     fun useItemOnAsset(itemName: String, assetName: String): String {
