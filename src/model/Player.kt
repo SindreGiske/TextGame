@@ -17,14 +17,14 @@ class Player(var currentRoom: Room) {
         } else {
             currentRoom.exits[direction]
         }
-        if (door?.lockType == LockTypeEnum.item) {
+        return if (door?.lockType == LockTypeEnum.item) {
             if (inventory.contains(door.lockKey)) {
-                return door.unlockDoor(door.lockKey!!)
+                door.unlockDoor(door.lockKey!!)
             } else {
-                return "You don't seem to have the right key item on you."
+                "You don't seem to have the right key item on you."
             }
         } else {
-            return "This door doesn't seem to have any locks a key can open."
+            "This door doesn't seem to have any locks a key can open."
         }
     }
 
@@ -48,10 +48,10 @@ class Player(var currentRoom: Room) {
         if ((exitDoor.lockType == LockTypeEnum.item) && (exitDoor.locked)) {
             return "This door seems to be locked. You need to find and use the key."
         }
-        if ((exitDoor.lockType == LockTypeEnum.interaction) && (exitDoor.locked)) {
-            return "The door won't budge. It doesn't seem to have a lock. Maybe there's some other way to unlock it."
+        return if ((exitDoor.lockType == LockTypeEnum.interaction) && (exitDoor.locked)) {
+            "The door won't budge. It doesn't seem to have a lock. Maybe there's some other way to unlock it."
         } else {
-            return (moveNextRoom(nextRoom!!, exitDoor, direction))
+            (moveNextRoom(nextRoom!!, exitDoor, direction))
         }
     }
     fun moveNextRoom(nextRoom: Room, exitDoor: Door, direction: String): String {
@@ -108,10 +108,10 @@ class Player(var currentRoom: Room) {
 
     fun interact(assetName: String): String {
         val asset = currentRoom.findAsset(assetName)
-        if (asset != null) {
-            return asset.interact()
+        return if (asset != null) {
+            asset.interact()
         } else {
-            return "Nothing happened."
+            "Nothing happened."
         }
     }
 }
