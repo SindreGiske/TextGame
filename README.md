@@ -15,6 +15,8 @@ Commands :
 - look at [asset]   (same as inspect [asset])
 - quit
 
+It is recommended to read descriptions thoroughly before proceeding. 
+
 MOVEMENT :
 
 go works in cardinal directions [north, south, east, west].

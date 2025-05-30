@@ -1,5 +1,6 @@
 package levels
 
+import model.Asset
 import model.Door
 import model.Room
 import model.data.Item
@@ -11,7 +12,7 @@ fun level2(): Room {
     val doorList = mutableListOf<Door>()
     val itemList = mutableListOf<Item>()
 
-    // STARTROOM INIT
+    // START ROOM INIT
     val start = Room("Ritual Hall", """
         
         
@@ -47,33 +48,69 @@ fun level2(): Room {
     // BACKROOM INIT
     val backRoom = Room("Backroom", """
         
+                    Behind the Ritual Hall you find what looks like some sort of 
+            waiting lounge. On the north wall there are four tables in front of a bookshelf. 
+                       In front of the west door there are some wooden crates.         
+                
+                                        ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╗
+                               ╔════════╝╧╧╧╧╧╧╧╧╧╧╧╧╧╚════════╗
+                               ║ ▓▓▓▓▓▓  ╥   ╥   ╥   ╥         ║
+                             W │                               │ E
+                               ║▓▓                             ║
+                               ╚════════╗             ╔════════╝
+                                        ╚═════   ═════╝
+                                               S
+                
+    """.trimIndent())
+    val backRoomCrates = Asset("Crates", "Heavy wooden crates. The lids are nailed down. On one of the crates you see a key.")
+    val backToStorageKey = Item("Storage room key", "Pretty normal key on a keychain with a 'storage' label.")
+    backRoomCrates.addItem(backToStorageKey)
+    backRoom.assets.add(backRoomCrates)
+    itemList.add(backToStorageKey)
+
+    // STORAGE ROOM INIT
+    val westRoom = Room("Storage Room", """
         
-                
-                ╔╤╤╤╤╤╤╤╤╤╤╤╤╤╗
-       ╔════════╝╧╧╧╧╧╧╧╧╧╧╧╧╧╚════════╗
-       ║         ╥   ╥   ╥   ╥         ║
-     W │                               │ E
-       ║                               ║
-       ╚════════╗             ╔════════╝
-                ╚═════   ═════╝
-                       S
-                
-               
+        A large storage room with filled with shelves from wall to wall. 
+                    The room is cluttered with wooden crates. 
+                    
+         Looking around the room you freeze in fear as you turn a corner
+         and see a man sitting on one of the crates smoking a cigarette. 
+        
+                           ╔════════════════════╗
+                           ║╔╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧║   
+                           ║╢   ╔╤╤▓▓        ▓▓ ║
+                           ║╢   ╟╔╧╧╝     ▓▓▓▓▓▓║
+                           ║╢   ╟╢      ╔═══════╝
+                           ║╢   ▓▓▓     ║
+                           ║╢           │ E
+                           ║╚╤╤╤╤╤╤╤╕ ▓▓║
+                           ╚════════════╝
+        
         
     """.trimIndent())
+    val westRoomCrates = Asset("Crates", "Heavy wooden crates. The lids are nailed down. ")
+    westRoom.assets.add(westRoomCrates)
+
 
     //DOORS
     val ritualBackDoor = Door.makeDoor("Ritual Hall Backdoor", roomA = start, roomB = backRoom, hidden = true, direction = "north", lockType = LockTypeEnum.none)
     doorList.add(ritualBackDoor)
 
+    val backRoomStorageDoor = Door.makeDoor("Storage room door", roomA = backRoom, roomB = westRoom, direction = "west", lockType = LockTypeEnum.item, lockKey = backToStorageKey)
+    doorList.add(backRoomStorageDoor)
+
+
     //ENTITIES
     val oldMan = oldMan
+
 
     //EVENTS
     val introEvent = Event("introEvent", entityEventRoom = start, activationText = "")
     introEvent.addDoor(ritualBackDoor)
     oldMan.updateEvent(introEvent)
     start.setNPC(oldMan)
+
 
     val startingRoom: Room = start
     return startingRoom

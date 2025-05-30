@@ -2,6 +2,7 @@ package model.interactions
 
 import model.data.DialogueNode
 import model.data.NPCs
+import model.util.clearConsole
 
 fun runDialogue(NPCs: NPCs) {
     val stack = ArrayDeque<DialogueNode>()
@@ -53,15 +54,19 @@ fun runDialogue(NPCs: NPCs) {
         current.next.forEachIndexed { index, option ->
             println("[${index +1}] :  ${option.prompt}")
         }
-
+        println("")
+        println("")
         println("")
         val input = readLine()?.toIntOrNull()?.minus(1)
 
         if (input != null && input in current.next.indices) {
             stack.addLast(current)
+            clearConsole()
             println("You: ${current.next[input].prompt}")
             Thread.sleep(wait250)
             current = current.next[input]
+            println("")
+            println("")
             println("")
             println("")
         } else {
