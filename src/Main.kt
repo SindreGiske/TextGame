@@ -1,4 +1,5 @@
 import model.interactions.runDialogue
+import stealth.models.data.rooms.room1
 import java.util.*
 
 var level: Int = 1
@@ -25,6 +26,8 @@ fun main() {
     println(player.currentRoom.describe())
 
     val scanner = Scanner(System.`in`)
+
+    stealth.StealthController().initiateMap(room1)
 
     while (true) {
         print("> ")
