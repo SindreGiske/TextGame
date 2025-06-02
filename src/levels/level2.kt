@@ -1,12 +1,13 @@
 package levels
 
+import model.interactions.Event
+import model.data.LockTypeEnum
+import model.data.Item
+import model.npc.oldMan
+import model.npc.Jeff
 import model.Asset
 import model.Door
 import model.Room
-import model.data.Item
-import model.data.LockTypeEnum
-import model.npc.oldMan
-import model.interactions.Event
 
 fun level2(): Room {
     val doorList = mutableListOf<Door>()
@@ -62,14 +63,15 @@ fun level2(): Room {
                                                S
                 
     """.trimIndent())
-    val backRoomCrates = Asset("Crates", "Heavy wooden crates. The lids are nailed down. On one of the crates you see a key.")
+    val backRoomCrates = Asset("Crates",
+        "Heavy wooden crates. The lids are nailed down. On one of the crates you see a key.")
     val backToStorageKey = Item("Storage room key", "Pretty normal key on a keychain with a 'storage' label.")
     backRoomCrates.addItem(backToStorageKey)
     backRoom.assets.add(backRoomCrates)
     itemList.add(backToStorageKey)
 
     // STORAGE ROOM INIT
-    val westRoom = Room("Storage Room", """
+    val storageRoom = Room("Storage Room", """
         
         A large storage room with filled with shelves from wall to wall. 
                     The room is cluttered with wooden crates. 
@@ -90,20 +92,24 @@ fun level2(): Room {
         
     """.trimIndent())
     val westRoomCrates = Asset("Crates", "Heavy wooden crates. The lids are nailed down. ")
-    westRoom.assets.add(westRoomCrates)
-
+    storageRoom.assets.add(westRoomCrates)
+    val westRoomWallShelves = Asset("Wall shelves",
+        "A series of shelves spanning almost all of the south, west and north walls.")
+    storageRoom.assets.add(westRoomWallShelves)
 
     //DOORS
-    val ritualBackDoor = Door.makeDoor("Ritual Hall Backdoor", roomA = start, roomB = backRoom, hidden = true, direction = "north", lockType = LockTypeEnum.none)
+    val ritualBackDoor = Door.makeDoor("Ritual Hall Backdoor", roomA = start, roomB = backRoom,
+        hidden = true, direction = "north", lockType = LockTypeEnum.none)
     doorList.add(ritualBackDoor)
 
-    val backRoomStorageDoor = Door.makeDoor("Storage room door", roomA = backRoom, roomB = westRoom, direction = "west", lockType = LockTypeEnum.item, lockKey = backToStorageKey)
+    val backRoomStorageDoor = Door.makeDoor("Storage room door", roomA = backRoom, roomB = storageRoom,
+        direction = "west", lockType = LockTypeEnum.item, lockKey = backToStorageKey)
     doorList.add(backRoomStorageDoor)
 
 
     //ENTITIES
     val oldMan = oldMan
-
+    val jeff = Jeff
 
     //EVENTS
     val introEvent = Event("introEvent", entityEventRoom = start, activationText = "")
@@ -111,6 +117,7 @@ fun level2(): Room {
     oldMan.updateEvent(introEvent)
     start.setNPC(oldMan)
 
+    storageRoom.setNPC(jeff)
 
     val startingRoom: Room = start
     return startingRoom

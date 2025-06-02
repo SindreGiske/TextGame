@@ -3,20 +3,20 @@ package model.npc
 import model.data.DialogueNode
 import model.data.NPCs
 
-val entityTemplate = NPCs(
-    name = "name",
-    goodbye = "goodbye",
+val Jeff = NPCs(
+    name = "Jeff",
+    goodbye = "see ya'!",
     event = null,
     rootDialogue = DialogueNode(
-        response = "",
+        response = "Hey man, please don't snitch on me for smoking.",
         next = listOf(
             DialogueNode(
-                prompt = "",
-                response = ""
+                prompt = "Who are you and why are you sneaking around in here?",
+                response = "Name's Jeff and I'm sneaking a cigarette. Who are YOU?"
             ),
             DialogueNode(
-                prompt = "",
-                response = "",
+                prompt = "I... Don't know who I am. What is this place?",
+                response = "One of those, huh? Too bad, ",
                 next = listOf(
                     DialogueNode(
                         prompt = "",
@@ -29,6 +29,10 @@ val entityTemplate = NPCs(
                         triggerEvent = true
                     )
                 )
+            ),
+            DialogueNode(
+                prompt = "Mind if I bum one?",
+                response = "Nu-uh bro do you even know how hard it is to smuggle these in here?",
             )
         )
     )

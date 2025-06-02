@@ -6,7 +6,6 @@ val oldMan = NPCs(
     name = "Mysterious Old Man",
     goodbye = "Godspeed fresh meat!",
     rootDialogue = DialogueNode(
-        prompt = "",
         response = "Hello there...",
         next = listOf(
             DialogueNode(
