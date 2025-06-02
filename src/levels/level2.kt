@@ -90,7 +90,8 @@ fun level2(): Room {
                            ╚════════════╝
         
         
-    """.trimIndent(), newDescription = """
+    """.trimIndent(),
+        newDescription = """
         
          A large storage room with filled with shelves from wall to wall. 
                  The room is cluttered with wooden crates. 
@@ -126,6 +127,7 @@ fun level2(): Room {
     val backRoomStorageDoor = Door.makeDoor("Storage room door", roomA = backRoom, roomB = storageRoom,
         direction = "west", lockType = LockTypeEnum.item, lockKey = backToStorageKey)
     doorList.add(backRoomStorageDoor)
+
 
 
     //ENTITIES
