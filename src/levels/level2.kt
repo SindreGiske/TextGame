@@ -90,12 +90,33 @@ fun level2(): Room {
                            ╚════════════╝
         
         
+    """.trimIndent(), newDescription = """
+        
+         A large storage room with filled with shelves from wall to wall. 
+                 The room is cluttered with wooden crates. 
+                    
+         The nice man left a key on the crate he sat on before he left. 
+        
+                           ╔════════════════════╗
+                           ║╔╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧╧║   
+                           ║╢   ╔╤╤▓▓        ▓▓ ║
+                           ║╢   ╟╔╧╧╝     ▓▓▓▓▓▓║
+                           ║╢   ╟╢      ╔═══════╝
+                           ║╢   ▓▓▓     ║
+                           ║╢           │ E
+                           ║╚╤╤╤╤╤╤╤╕ ▓▓║
+                           ╚════════════╝
+        
+       
     """.trimIndent())
     val westRoomCrates = Asset("Crates", "Heavy wooden crates. The lids are nailed down. ")
     storageRoom.assets.add(westRoomCrates)
     val westRoomWallShelves = Asset("Wall shelves",
         "A series of shelves spanning almost all of the south, west and north walls.")
     storageRoom.assets.add(westRoomWallShelves)
+    val jeffsKey = Item("Jeff's key", "He said this key could give you a chance.")
+    val jeffsCrate = Asset("Jeff's crate", "The crate Jeff sat on. He left a key for you on it. ")
+    jeffsCrate.addItem(jeffsKey)
 
     //DOORS
     val ritualBackDoor = Door.makeDoor("Ritual Hall Backdoor", roomA = start, roomB = backRoom,
@@ -117,7 +138,11 @@ fun level2(): Room {
     oldMan.updateEvent(introEvent)
     start.setNPC(oldMan)
 
+    val jeffEvent = Event("jeffEvent", entityEventRoom = storageRoom, activationText = "")
+    jeffEvent.addAsset(jeffsCrate)
+    jeff.updateEvent(jeffEvent)
     storageRoom.setNPC(jeff)
+
 
     val startingRoom: Room = start
     return startingRoom
