@@ -63,6 +63,7 @@ fun main() {
                     - look              (looks around the room)
                     - look at [asset]   (same as inspect [asset])
                     - speak
+                    - craft
                     - quit
                 """.trimIndent())
             }
@@ -125,6 +126,10 @@ fun main() {
             input.startsWith("interact ") -> {
                 val assetName = input.removePrefix("interact ").trim()
                 println(player.interact(assetName))
+            }
+
+            input == "craft" -> {
+                player.craft()
             }
 
             input == "speak" -> {

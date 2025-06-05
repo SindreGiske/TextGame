@@ -137,6 +137,10 @@ class Player(var currentRoom: Room) {
         } else "You couldn't find $itemName in your inventory."
     }
 
+    fun craft() {
+        inventory.add(CraftingMenu(inventory))
+    }
+
     fun checkInventory(): String {
         return if (inventory.isEmpty()) "Your inventory is empty."
         else inventory.joinToString("\n") { "${it.name}: ${it.description}" }
