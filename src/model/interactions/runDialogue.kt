@@ -9,18 +9,21 @@ fun runDialogue(NPCs: NPCs) {
     var current: DialogueNode? = NPCs.rootDialogue
     val theirName = NPCs.name
 
+    var fastText: Boolean = false
     var wait1000:Long = 1000
     var wait1500:Long = 1500
     var wait250 :Long  = 250
-    if (false) {
-        wait1000 = 0
-        wait1500 = 0
-        wait250 = 0
-    }
+
     clearConsole()
     println("$theirName: ${current!!.response}")
 
     while (current != null) {
+
+        if (fastText) {
+            wait1000 = 0
+            wait1500 = 0
+            wait250 = 0
+        }
 
         if (current.response != NPCs.rootDialogue.response) {
             println("$theirName: ${current.response}")
@@ -60,6 +63,9 @@ fun runDialogue(NPCs: NPCs) {
         val input = readline.toIntOrNull()?.minus(1)
         println("readline : $readline")
 
+        if (readline == "fast") {
+            fastText = true
+        }
         if (readline == "skip") {
             println("$theirName: ${NPCs.goodbye}")
             println("")

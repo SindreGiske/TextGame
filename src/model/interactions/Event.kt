@@ -36,6 +36,9 @@ class Event (
         if (endEvent == true) {
             nextLevel()
         }
+        if (doorList.isEmpty() && entityEventRoom != null) {
+            entityEventRoom?.updateDescription()
+        } else
         doorList.forEach {
             it.hidden = false
             it.locked = false

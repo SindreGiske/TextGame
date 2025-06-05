@@ -12,10 +12,9 @@ class Player(var currentRoom: Room) {
     var assetCache: MutableList<Asset> = mutableListOf()
 
     fun unlockDoor(direction: String?): String {
-        var directionName = direction
-        if (direction!!.contains("door")) {
-            directionName.removeSuffix("door").trim()
-        }
+        var directionName = direction!!.removeSuffix("door").removePrefix("door").trim()
+
+        println("unlockDoor directionName : $directionName")
         var door: Door? = null
         door = if (currentRoom.exits.size == 1) {
             currentRoom.exits.values.first()
@@ -99,7 +98,6 @@ class Player(var currentRoom: Room) {
                 inventory.add(item)
                 return "You took the $itemName from the $assetName"
             }
-
         }
         return "Couldn't find $itemName on $assetName"
     }
