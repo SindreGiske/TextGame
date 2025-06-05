@@ -2,6 +2,7 @@ package model
 
 import model.data.Item
 import model.data.LockTypeEnum
+import model.interactions.runDialogue
 import model.util.reverseDirection
 
 class Player(var currentRoom: Room) {
@@ -52,6 +53,11 @@ class Player(var currentRoom: Room) {
         if (exitDoor == null) {
             return "You can't go that way."
         }
+        if (exitDoor.isHidden()) {
+            return "You can't go that way."
+        }
+
+
         if ((exitDoor.lockType == LockTypeEnum.item) && (exitDoor.locked)) {
             return "This door seems to be locked. You need to find and use the key."
         }
@@ -109,6 +115,14 @@ class Player(var currentRoom: Room) {
             }
         }
         return ("Where do you want to take the $itemName from?")
+    }
+
+    fun initiateDialogue() {
+        if (currentRoom.npc != null) {
+            runDialogue(currentRoom.npc!!)
+        } else {
+            println("You seem to be all alone.")
+        }
     }
 
     fun useItemOnAsset(itemName: String, assetName: String): String {

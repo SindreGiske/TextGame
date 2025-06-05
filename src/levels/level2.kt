@@ -120,7 +120,7 @@ fun level2(): Room {
 
     //DOORS
     val ritualBackDoor = Door.makeDoor("Ritual Hall Backdoor", roomA = start, roomB = backRoom,
-        hidden = true, direction = "north", lockType = LockTypeEnum.none)
+        hidden = true, direction = "north", lockType = LockTypeEnum.none, locked = true)
     doorList.add(ritualBackDoor)
 
     val backRoomStorageDoor = Door.makeDoor("Storage room door", roomA = backRoom, roomB = storageRoom,

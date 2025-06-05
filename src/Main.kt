@@ -24,6 +24,14 @@ fun main() {
         
         """.trimIndent())
     }
+    if (level == 2) {
+        println("""
+            
+            to initiate dialogue, type 'speak'
+            
+        """.trimIndent())
+    }
+
     println(player.currentRoom.describe())
 
     val scanner = Scanner(System.`in`)
@@ -40,10 +48,6 @@ fun main() {
             running = false
         }
 
-        if (player.currentRoom.npc != null) {
-            runDialogue(player.currentRoom.npc!!)
-        }
-
         when {
             input == "help" -> {
                 println("""
@@ -58,6 +62,7 @@ fun main() {
                     - inventory
                     - look              (looks around the room)
                     - look at [asset]   (same as inspect [asset])
+                    - speak
                     - quit
                 """.trimIndent())
             }
@@ -120,6 +125,10 @@ fun main() {
             input.startsWith("interact ") -> {
                 val assetName = input.removePrefix("interact ").trim()
                 println(player.interact(assetName))
+            }
+
+            input == "speak" -> {
+                player.initiateDialogue()
             }
 
             input == "inventory" -> {

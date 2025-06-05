@@ -17,6 +17,7 @@ Commands :
 - inventory
 - look              (looks around the room)
 - look at [asset]   (same as inspect [asset])
+- speak
 - quit
 
 It is recommended to read descriptions thoroughly before proceeding. 
@@ -44,8 +45,8 @@ If the room only has one door, you can unlock it with just [ unlock door ]. [ us
 
 NPC DIALOGUE : 
 
-In Level 2 you will meet NPCs. When you enter the room in which they are staying the dialogue will start 
-after your next input, whatever that may be. 
+In Level 2 you will meet NPCs. Simply input [speak] to initiate dialogue.
+Some NPCs will leave the room after the dialogue is over. 
 
 The dialogue system gives you a numbered list of responses. input the number of the 
 response you want to give, and in turn the NPC will respond accordingly. 

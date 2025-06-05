@@ -30,7 +30,7 @@ class Event (
 
     private fun activateEvent() {
         this.active = true
-        if (entityEventRoom != null) {
+        if (entityEventRoom != null && entityEventRoom!!.npc!!.leavesAfterDialogue) {
             entityEventRoom?.npcLeaves()
         }
         if (endEvent == true) {

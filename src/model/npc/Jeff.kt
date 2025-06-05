@@ -7,6 +7,7 @@ val Jeff = NPCs(
     name = "Jeff",
     goodbye = "Gotta run. To be honest I'm just here for the pay. Take this key, might help give you a chance to survive.",
     event = null,
+    leavesAfterDialogue = true,
     rootDialogue = DialogueNode(
         response = "Hey man, please don't snitch on me for smoking.",
         next = listOf(

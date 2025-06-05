@@ -7,6 +7,7 @@ val entityTemplate = NPCs(
     name = "name",
     goodbye = "goodbye",
     event = null,
+    leavesAfterDialogue = true,
     rootDialogue = DialogueNode(
         response = "",
         next = listOf(

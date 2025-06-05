@@ -5,6 +5,7 @@ import model.data.NPCs
 val oldMan = NPCs(
     name = "Mysterious Old Man",
     goodbye = "Godspeed fresh meat!",
+    leavesAfterDialogue = true,
     rootDialogue = DialogueNode(
         response = "Hello there...",
         next = listOf(
