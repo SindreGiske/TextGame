@@ -27,12 +27,19 @@ fun main() {
     println(player.currentRoom.describe())
 
     val scanner = Scanner(System.`in`)
+    var running = true
 
-    while (true) {
+    while (running) {
         println(" ")
         print("> ")
         val input = scanner.nextLine().trim().lowercase()
         if (input.isEmpty()) continue
+
+        if (input == "quit") {
+            println("Shutting down...")
+            running = false
+        }
+
         if (player.currentRoom.npc != null) {
             runDialogue(player.currentRoom.npc!!)
         }
@@ -125,11 +132,6 @@ fun main() {
 
             input == "shortcut" -> {
                 nextLevel()
-            }
-
-            input == "quit" -> {
-                println("Shutting down...")
-                break
             }
         }
     }

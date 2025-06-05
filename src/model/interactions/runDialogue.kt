@@ -56,6 +56,15 @@ fun runDialogue(NPCs: NPCs) {
         println("")
         print("> ")
         val input = readLine()?.toIntOrNull()?.minus(1)
+        val readline: String = readLine().toString()
+        println("readline : $readline")
+
+        if (readline == "skip") {
+            println("$theirName: ${NPCs.goodbye}")
+            println("")
+            NPCs.event?.npcActivateEvent()
+            break
+        }
 
         if (input != null && input in current.next.indices) {
             stack.addLast(current)

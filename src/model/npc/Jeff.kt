@@ -21,8 +21,8 @@ val Jeff = NPCs(
                 next = listOf(
                     DialogueNode(
                         prompt = "What do you mean one of those?",
-                        response = "Experiments. The Elders are experimenting with black magic. " +
-                                "Guess you were just at the wrong place at the wrong time.",
+                        response = "Experiments. The Elders are experimenting with black magic." +
+                                "\nGuess you were just at the wrong place at the wrong time.",
                         triggerEvent = true
                     )
                 )

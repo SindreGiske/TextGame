@@ -12,13 +12,17 @@ class Player(var currentRoom: Room) {
     var assetCache: MutableList<Asset> = mutableListOf()
 
     fun unlockDoor(direction: String?): String {
+        var directionName = direction
+        if (direction!!.contains("door")) {
+            directionName = direction.removeSuffix("door").trim()
+        }
         var door: Door? = null
         door = if (currentRoom.exits.size == 1) {
             currentRoom.exits.values.first()
         } else {
-            currentRoom.exits[direction]
+            currentRoom.exits[directionName]
         }
-        if (currentRoom.exits.size > 1 && direction == "door") {
+        if (currentRoom.exits.size > 1 && directionName == "") {
             return "Which door do you want to unlock?"
         }
 
