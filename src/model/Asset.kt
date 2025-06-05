@@ -30,13 +30,14 @@ class Asset(
 
     fun inspect(): String {
         val lines = mutableListOf<String>()
+        lines.add(" ")
         lines.add(description)
-
+        lines.add(" ")
         if (interaction != "") {
             lines.add("You may be able to interact with the $name.")
         } else if (items.isNotEmpty()) {
             val itemDescriptions = items.joinToString(" ") {
-                "a ${it.name.lowercase()}. ${it.description}"
+                "a '${it.name.lowercase()}'. ${it.description}"
             }
             lines.add("On the $name there is $itemDescriptions")
         } else {
@@ -77,12 +78,12 @@ class Asset(
     }
 
     fun takeItem(itemName: String): Item? {
-        val item = items.find { it.name.equals(itemName, ignoreCase = true) }
+        val item = items.find { it.name.contains(itemName, ignoreCase = true) }
         if (item != null) items.remove(item)
         return item
     }
 
     fun hasItem(itemName: String): Boolean {
-        return items.any { it.name.equals(itemName, ignoreCase = true) }
+        return items.any { it.name.contains(itemName, ignoreCase = true) }
     }
 }

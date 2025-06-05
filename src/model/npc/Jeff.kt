@@ -12,7 +12,8 @@ val Jeff = NPCs(
         next = listOf(
             DialogueNode(
                 prompt = "Who are you and why are you sneaking around in here?",
-                response = "Name's Jeff and I'm sneaking a cigarette. Who are YOU?"
+                response = "Name's Jeff and I'm sneaking a cigarette. Who are YOU?",
+                goBackOnEnd = true
             ),
             DialogueNode(
                 prompt = "I... Don't know who I am. What is this place?",
@@ -29,6 +30,7 @@ val Jeff = NPCs(
             DialogueNode(
                 prompt = "Mind if I bum one?",
                 response = "Nu-uh bro do you even know how hard it is to smuggle these in here?",
+                goBackOnEnd = true
             )
         )
     )

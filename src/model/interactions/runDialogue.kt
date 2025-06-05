@@ -17,7 +17,7 @@ fun runDialogue(NPCs: NPCs) {
         wait1500 = 0
         wait250 = 0
     }
-
+    clearConsole()
     println("$theirName: ${current!!.response}")
 
     while (current != null) {
@@ -26,8 +26,7 @@ fun runDialogue(NPCs: NPCs) {
             println("$theirName: ${current.response}")
         }
         println("")
-        println("")
-        println("")
+
 
         if (current.triggerEvent == true) {
             println("$theirName: ${NPCs.goodbye}")
@@ -55,8 +54,7 @@ fun runDialogue(NPCs: NPCs) {
             println("[${index +1}] :  ${option.prompt}")
         }
         println("")
-        println("")
-        println("")
+        print("> ")
         val input = readLine()?.toIntOrNull()?.minus(1)
 
         if (input != null && input in current.next.indices) {
@@ -65,8 +63,6 @@ fun runDialogue(NPCs: NPCs) {
             println("You: ${current.next[input].prompt}")
             Thread.sleep(wait250)
             current = current.next[input]
-            println("")
-            println("")
             println("")
             println("")
         } else {

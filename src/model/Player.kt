@@ -18,6 +18,10 @@ class Player(var currentRoom: Room) {
         } else {
             currentRoom.exits[direction]
         }
+        if (currentRoom.exits.size > 1 && direction == "door") {
+            return "Which door do you want to unlock?"
+        }
+
         return if (door?.lockType == LockTypeEnum.item) {
             if (inventory.contains(door.lockKey)) {
                 door.unlockDoor(door.lockKey!!)
@@ -71,7 +75,10 @@ class Player(var currentRoom: Room) {
 
     fun inspectAsset(assetName: String): String {
         val asset = currentRoom.findAsset(assetName)
-        assetCache.add(asset!!)
+        if (asset == null) {
+            return "couldn't find asset $assetName."
+        }
+        assetCache.add(asset)
         return asset.inspect()
     }
 
@@ -88,6 +95,7 @@ class Player(var currentRoom: Room) {
                 inventory.add(item)
                 return "You took the $itemName from the $assetName"
             }
+
         }
         return "Couldn't find $itemName on $assetName"
     }

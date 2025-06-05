@@ -1,4 +1,8 @@
-run main.kt in to try game. The game is 100% run in the command line. 
+run main.kt in to try game. The game is 100% run in the command line.
+
+compile with the command : kotlinc src -include-runtime -d game.jar
+
+Run game with the command: java -jar game.jar
 
 There is currently no support for any command not mentioned in the helptext. 
 
@@ -28,6 +32,11 @@ TAKE ITEM:
 If you have inspected the asset which holds the item (and not left the room since) 
 you can simply say for example [take key], and the key will be taken from the table, 
 not needing to specify [take key from table]. 
+
+You don't have to specify full item names. 
+Instead of having to write [take storage room key from crates], 
+you can just say [take key from crates], and as long as the item name contains
+the identifier ( [key] in this case ), you will find the item.
 
 UNLOCK DOOR : 
 

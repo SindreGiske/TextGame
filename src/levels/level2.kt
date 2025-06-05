@@ -115,9 +115,8 @@ fun level2(): Room {
     val westRoomWallShelves = Asset("Wall shelves",
         "A series of shelves spanning almost all of the south, west and north walls.")
     storageRoom.assets.add(westRoomWallShelves)
-    val jeffsKey = Item("Jeff's key", "He said this key could give you a chance.")
-    val jeffsCrate = Asset("Jeff's crate", "The crate Jeff sat on. He left a key for you on it. ")
-    jeffsCrate.addItem(jeffsKey)
+    val jeffsKey = Item("Jeff's key", "Jeff said this key could give you a chance.")
+    westRoomCrates.addItem(jeffsKey)
 
     //DOORS
     val ritualBackDoor = Door.makeDoor("Ritual Hall Backdoor", roomA = start, roomB = backRoom,
@@ -128,6 +127,9 @@ fun level2(): Room {
         direction = "west", lockType = LockTypeEnum.item, lockKey = backToStorageKey)
     doorList.add(backRoomStorageDoor)
 
+    val backRoomEastDoor = Door.makeDoor("East room door", roomA = backRoom,
+        lockType = LockTypeEnum.item, lockKey = jeffsKey, direction = "east")
+    doorList.add(backRoomEastDoor)
 
 
     //ENTITIES
@@ -140,8 +142,7 @@ fun level2(): Room {
     oldMan.updateEvent(introEvent)
     start.setNPC(oldMan)
 
-    val jeffEvent = Event("jeffEvent", entityEventRoom = storageRoom, activationText = "")
-    jeffEvent.addAsset(jeffsCrate)
+    val jeffEvent = Event("jeffEvent", entityEventRoom = storageRoom, activationText = storageRoom.describe())
     jeff.updateEvent(jeffEvent)
     storageRoom.setNPC(jeff)
 

@@ -32,7 +32,7 @@ class Event (
         this.active = true
         if (entityEventRoom != null) {
             entityEventRoom?.npcLeaves()
-        } else
+        }
         if (endEvent == true) {
             nextLevel()
         }

@@ -1,8 +1,10 @@
 import model.interactions.runDialogue
+import model.util.clearConsole
 import java.util.*
 
 var level: Int = 1
 fun nextLevel() {
+    clearConsole()
     println("""
         Level $level complete!
         
@@ -27,6 +29,7 @@ fun main() {
     val scanner = Scanner(System.`in`)
 
     while (true) {
+        println(" ")
         print("> ")
         val input = scanner.nextLine().trim().lowercase()
         if (input.isEmpty()) continue
@@ -87,7 +90,7 @@ fun main() {
                     val item = parts[0].trim()
                     val asset = parts[1].trim()
                     println(player.takeItemFromAsset(item, asset))
-                }
+                } else
                 if (parts.size == 1) {
                     val item = parts[0].trim()
                     println(player.takeItemFromAssetCache(item))
@@ -118,6 +121,10 @@ fun main() {
 
             input == "check inventory" -> {
                 println(player.checkInventory())
+            }
+
+            input == "shortcut" -> {
+                nextLevel()
             }
 
             input == "quit" -> {

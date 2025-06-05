@@ -42,7 +42,6 @@ class Room (
 
         Assets: ${if (assetNames.isEmpty()) "None" else assetNames}
         Exits: ${if (exitNames.isEmpty()) "None" else exitNames}
-        
     """.trimIndent()
     }
 
