@@ -13,7 +13,6 @@ class Player(var currentRoom: Room) {
 
     fun unlockDoor(direction: String?): String {
         var directionName = direction!!.removeSuffix("door").removePrefix("door").trim()
-
         println("unlockDoor directionName : $directionName")
         var door: Door? = null
         door = if (currentRoom.exits.size == 1) {
